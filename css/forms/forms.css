@@ -25,6 +25,7 @@
     display: block;
     width: 100%;
     box-sizing: border-box;
+    padding: 5px;
 }
 
 .form .input-row textarea,
@@ -94,11 +95,12 @@
 .form .generator .generator-control-row{
     display: grid;
     grid-template-columns: 1fr auto;
-}
-.form .generator .generator-control-row{
     padding: 5px;
     background-color: #faf9f8;
     border: 1px solid #dedede;
+}
+.form .generator .generator-title{
+    padding: 5px;
 }
 .form .generator .generator_rows{
     display: grid;

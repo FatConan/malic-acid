@@ -1,0 +1,42 @@
+{
+  "name": "malic-acid",
+  "version": "1.0.0",
+  "description": "A javascript  HTML form handling library for use atop formic-acid.",
+  "main": "index.js",
+  "directories": {
+    "example": "example",
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "webpack --mode develop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FatConan/malic-acid.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FatConan/malic-acid/issues"
+  },
+  "homepage": "https://github.com/FatConan/malic-acid#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "css-loader": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "uglifyjs-webpack-plugin": "^2.1.3",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "backbone": "^1.4.0",
+    "core-js": "^3.0.1",
+    "jquery": "^3.4.1",
+    "underscore": "^1.9.1"
+  }
+}

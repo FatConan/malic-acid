@@ -1,0 +1,7 @@
+@import "reset.css";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+html, input, select, textarea, button{
+    font-family: 'Roboto', sans-serif;
+    padding: 5px;
+}
