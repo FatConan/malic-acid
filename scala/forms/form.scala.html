@@ -1,0 +1,13 @@
+@import java.util
+@(name: String, attributes:util.Map[String, String], showRequiredNotice: Boolean)(elements: Html)
+<form id="form_@name" class="form @name"
+    @for(entry:util.Map.Entry[String, String] <- attributes.entrySet()){
+        @entry.getKey="@entry.getValue"
+    }>
+    <div class="global-errors"></div>
+    @elements
+    @if(showRequiredNotice) {
+        @views.html.common.forms.requiredNotice()
+    }
+    <input type="submit" class="hidden" />
+</form>

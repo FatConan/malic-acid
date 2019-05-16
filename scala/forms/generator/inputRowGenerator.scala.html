@@ -1,0 +1,10 @@
+@(name: String, title: String)(controls: Html)(elements: Html)
+<div id="generator_@name" class="generator @name" data-template="@elements.toString">
+    <div class="generator-control-row">
+        <div class="generator-title">@title</div>
+        <div class="actions">@controls</div>
+    </div>
+    <div class="generator_rows">
+
+    </div>
+</div>

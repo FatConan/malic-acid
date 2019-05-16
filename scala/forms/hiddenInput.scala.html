@@ -1,0 +1,4 @@
+@(name:String, formName:String, value:String)
+@defining(if(formName){formName + "_input_" + name}else{"input_" + name}){ id =>
+    <input name="@name" id="@id" type="hidden" @if(value){value="@value"} />
+}

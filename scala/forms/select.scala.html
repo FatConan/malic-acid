@@ -1,0 +1,13 @@
+@(name:String, required:Boolean, label:String, options:java.util.List[javafx.util.Pair[String, String]], formName:String, value:String)
+@defining(if(formName){formName + "_input_" + name}else{"input_" + name}){ id =>
+    <div class="input-row @if(required) {required}" data-errorname="@name">
+        <div class="error"></div>
+        <label for="@id">@label: </label>
+        <select name="@name" id="@id">
+        @for(pair: javafx.util.Pair[String, String] <- options) {
+            <option value="@pair.getKey" @if(value && value.equals(pair.getKey)) {
+                selected="selected"}>@pair.getValue</option>
+        }
+        </select>
+    </div>
+}
