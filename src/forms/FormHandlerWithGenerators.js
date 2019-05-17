@@ -1,8 +1,6 @@
-import {$, jQuery} from "jquery";
-import {_} from "underscore";
-import { Backbone } from "backbone";
-import { ElementHelper } from "../dom/ElementHelper";
-import { FormHandler } from "./FormHandler";
+import $ from "jquery";
+import _ from "underscore";
+import FormHandler from "./FormHandler";
 
 export default class FormHandlerWithGenerators extends FormHandler{
     constructor(options){
@@ -58,6 +56,8 @@ export default class FormHandlerWithGenerators extends FormHandler{
     generatorHandler(augmentedGenerator, target){
         if(target.matches("button.add-row")){
             this.generatorAddRowButtonHandler(augmentedGenerator, target, this.elementHelper.guid());
+        }else if(target.matches("button.delete-row")){
+            this.generatorDeleteRowButtonHandler(augmentedGenerator, target);
         }else{
             this.generatorOtherButtonHandler(augmentedGenerator, target);
         }
@@ -65,6 +65,13 @@ export default class FormHandlerWithGenerators extends FormHandler{
 
     generatorAddRowButtonHandler(augmentedGenerator, target, id){
         augmentedGenerator.generatorRowStore.append(augmentedGenerator.templateRow({id: id}));
+    }
+
+    generatorDeleteRowButtonHandler(augmentedGenerator, target){
+         let div = this.elementHelper.findParentTag(target, "DIV");
+         if(div !== null){
+             $(div).remove();
+         }
     }
 
     generatorOtherButtonHandler(augmentedGenerator, target){

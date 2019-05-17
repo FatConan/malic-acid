@@ -1,4 +1,4 @@
 require("@babel/polyfill");
 const $ = require("jquery");
-const malicAcid = require("malicAcid");
+const malicAcid = require("malic-acid");
 console.log($, malicAcid);

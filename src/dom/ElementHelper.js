@@ -1,4 +1,4 @@
-import { $, jQuery } from "jquery";
+import $ from "jquery";
 
 export default class ElementHelper{
     guid(){

@@ -1,12 +1,12 @@
-import {$, jQuery} from "jquery";
-import {_} from "underscore";
-import { Backbone } from "backbone";
-import { ElementHelper } from "../dom/ElementHelper";
+import $ from "jquery";
+import _ from "underscore";
+import Backbone from "backbone";
+import ElementHelper from "../dom/ElementHelper";
 
 export default class FormHandler{
     constructor(options){
-        this.formElement = options.form;
-        this.formDefaults = options.formDefaults ? options.formDefaults : {};
+        this.formElement = $(options.form);
+        this.formDefaults = options.formDefaults != null ? options.formDefaults : {};
         this.autoHiddenReset = options.autoHiddenReset != null ? options.autoHiddenReset : true;
         this.formSubmitRepression = options.formSubmitRepression != null ? options.formSubmitRepression : true;
 

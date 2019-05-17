@@ -1,4 +1,4 @@
-import { FormHandler } from "./FormHandler";
+import FormHandler from "./FormHandler";
 
 export default class BasicForm extends FormHandler{
     constructor(options){
@@ -17,4 +17,3 @@ export default class BasicForm extends FormHandler{
         return rawData;
     }
 };
-
