@@ -34,6 +34,7 @@ require(["MalicAcid"], function(malicAcid){
         let content = document.getElementById("load-entry").innerHTML;
         console.log(content);
         let data = JSON.parse(content);
+        form.reset();
         form.setFormData(data);
     }.bind(this));
 });
