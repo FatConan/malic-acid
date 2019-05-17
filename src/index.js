@@ -6,9 +6,9 @@ import BasicFormWithGenerators from "./forms/BasicFormWithGenerators";
 import './css/forms/forms.css';
 
 export {
-    ElementHelper as ElementHelper,
-    FormHandler as FormHandler,
-    BasicForm as BasicForm,
-    FormHandlerWithGenerators as FormHandlerWithGenerators,
-    BasicFormWithGenerators as BasicFormWithGenerators
+    ElementHelper,
+    FormHandler,
+    BasicForm,
+    FormHandlerWithGenerators,
+    BasicFormWithGenerators
 };
