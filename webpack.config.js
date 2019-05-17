@@ -66,8 +66,8 @@ module.exports = {
 	},
 
 	output: {
-		filename: "[name].js",
-		chunkFilename: "[name].js",
+		filename: "MalicAcid.js",
+		chunkFilename: "MalicAcid.js",
 		library: "MalicAcid",
 		libraryTarget: "amd"
 	},
