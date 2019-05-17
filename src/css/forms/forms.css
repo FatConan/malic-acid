@@ -127,6 +127,7 @@
 .form .generator .generator-input-row:nth-child(even){
     background-color: #faf9f8;
 }
+.form button,
 .form .generator button{
     border: 1px solid #20ADED;
     background-color: #20ADED;

@@ -5,3 +5,33 @@ html, input, select, textarea, button{
     font-family: 'Roboto', sans-serif;
     padding: 5px;
 }
+
+#device-editor .generator-control-row{
+    background-color: #fff;
+}
+
+#device-editor #device_input_device_lock_state{
+    grid-template-columns: 80px 80px;
+}
+
+#device-editor .multi-pane{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+#device-editor .secondary{
+    background-color: #faf9f8;
+}
+
+#generator_metadata .generator_rows .generator-input-row{
+    grid-template-columns: 1fr 1fr auto;
+}
+
+#generator_metadata .generator_rows .input-row-actions{
+    display: grid;
+    grid-template-columns: 1fr;
+    box-sizing: border-box;
+}
+#generator_metadata .generator_rows .error{
+    grid-column-start: 1;
+    grid-column-end: 3;
+}

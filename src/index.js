@@ -3,9 +3,7 @@ import FormHandler from "./forms/FormHandler";
 import BasicForm from "./forms/BasicForm";
 import FormHandlerWithGenerators from "./forms/FormHandlerWithGenerators";
 import BasicFormWithGenerators from "./forms/BasicFormWithGenerators";
-
-//const elementHelper = new ElementHelper();
-//const form = new FormHandler({form: document.getElementsByTagName("form")[0]});
+import './css/forms/forms.css';
 
 export {
     ElementHelper as ElementHelper,
