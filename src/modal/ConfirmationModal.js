@@ -3,7 +3,6 @@ import 'jquery-ui-bundle';
 import _ from "underscore";
 import ConfirmationTemplate from "./templates/confirmationModal.html";
 
-//define(["jquery", "underscore", "text!./templates/confirmationModal.html", "jquery-ui"], function ($, _, ConfirmationTemplate) {
 export default class ConfirmationModal{
     constructor(modalOptions, actions){
         this.actions = actions;
