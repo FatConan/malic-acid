@@ -59,6 +59,10 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     $("#populate-form").on("click", function(){
         loadConfirm.open();
     });
+    form.on("form:submitted", function(e){
+        alert("from Submission Captured");
+        submitFunc();
+    });
 });
 
 

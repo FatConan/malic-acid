@@ -3,7 +3,7 @@ import _ from "underscore";
 import Backbone from "backbone";
 import ElementHelper from "../dom/ElementHelper";
 
-export default class FormHandler{
+export default class FormHandler {
     constructor(options){
         this.formElement = $(options.form);
         this.formDefaults = options.formDefaults != null ? options.formDefaults : {};
@@ -30,6 +30,14 @@ export default class FormHandler{
 
     trigger(event){
         this.backbone.trigger(event);
+    }
+
+    on(event, handler){
+        this.backbone.on(event, handler);
+    }
+
+    off(event){
+        this.backbone.off(event);
     }
 
     buildInputReference(formElement){
