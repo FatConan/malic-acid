@@ -51,7 +51,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
 
     const loadConfirm = new malicAcid.ConfirmationModal({
             title: "Are you sure?",
-            content: "Are you sure you want to populate this form with the data in the textarea below?"
+            content: "Are you sure you want to populate this form with the data in the green text area?"
         },
         {
             yes: populateForm

@@ -36,3 +36,10 @@ html, input, select, textarea, button{
     grid-column-start: 1;
     grid-column-end: 3;
 }
+#load-entry{
+    background: #eaffea;
+    margin-top: 20px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 20em;
+}

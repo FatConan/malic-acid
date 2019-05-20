@@ -94,28 +94,28 @@
                     <p class="indicates-required">Indicates a required field.</p>
                 </div>
 
-                <input type="submit" value="Native Form Submission" />
-                <button id="submit-this" type="button" class="button">Test Submission</button>
-                <button id="populate-form" type="button" class="button">Test Population</button>
+                <div class="input-row">
+                    <input type="submit" value="Native Form Submission" />
+                    <button id="submit-this" type="button" class="button">Test Submission</button>
+                    <button id="populate-form" type="button" class="button">Test Population</button>
+                </div>
             </form>
         </section>
         <section>
-            <textarea id="load-entry">
-                {
-                    "id": 5,
-                    "device_lock_state": true,
-                    "device_name": "This is a loaded device",
-                    "status_id": 3,
-                    "status_message": "This device is broken and offline",
-                    "metadata": [
-                        {"id": 1, "metadata_key": "KEY 1", "metadata_value": "VALUE 1"},
-                        {"id": 2, "metadata_key": "KEY 2", "metadata_value": "VALUE 2"},
-                        {"id": 3, "metadata_key": "KEY 3", "metadata_value": "VALUE 3"},
-                        {"id": 4, "metadata_key": "KEY 4", "metadata_value": "VALUE 4"},
-                        {"id": 5, "metadata_key": "KEY 5", "metadata_value": "VALUE 5"}
-                    ]
-                }
-            </textarea>
+            <textarea id="load-entry">{
+    "id": 5,
+    "device_lock_state": true,
+    "device_name": "This is a loaded device",
+    "status_id": 3,
+    "status_message": "This device is broken and offline",
+    "metadata": [
+        {"id": 1, "metadata_key": "KEY 1", "metadata_value": "VALUE 1"},
+        {"id": 2, "metadata_key": "KEY 2", "metadata_value": "VALUE 2"},
+        {"id": 3, "metadata_key": "KEY 3", "metadata_value": "VALUE 3"},
+        {"id": 4, "metadata_key": "KEY 4", "metadata_value": "VALUE 4"},
+        {"id": 5, "metadata_key": "KEY 5", "metadata_value": "VALUE 5"}
+    ]
+}</textarea>
         </section>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="./main.js"></script>
