@@ -65,10 +65,14 @@ module.exports = {
 		]
 	},
 
+	entry: {
+		malicacid: path.resolve(__dirname, "src/index.js"),
+		malicacidcss: path.resolve(__dirname, "src/css.js")
+	},
+
 	output: {
-		filename: "malicacid.js",
-		chunkFilename: "malicacid.js",
-		library: "malicacid",
+		filename: "[name].bundle.js",
+		chunkFilename: "[name].bundle.js",
 		libraryTarget: "amd"
 	},
 
