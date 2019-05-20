@@ -37,6 +37,8 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     const form = new DeviceStatusForm({form: $("form")});
     const submitFunc =  function(e){
         console.log(this.getFormData());
+        //Allow resubmissions by unlocking the forms
+        this.unlock();
     }.bind(form);
 
     const populateForm = function(e){
