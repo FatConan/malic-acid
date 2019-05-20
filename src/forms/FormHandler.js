@@ -173,7 +173,6 @@ export default class FormHandler{
                     }
                 }
             }
-
         }else{
             //An unspecified error occurred
             errorReference.globalErrors.addClass("hasError");
@@ -245,7 +244,6 @@ export default class FormHandler{
 
     setFieldDataFromElement(fieldName, inputReference, formElement, value, silent){
         let meta = inputReference[fieldName];
-        //console.log("SET FIELD DATA", fieldName, meta);
         if(meta){
             let target = formElement.find(meta.tag + "[name=" + fieldName + "]");
             switch (meta.tag) {

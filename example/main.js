@@ -35,16 +35,30 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     }
 
     const form = new DeviceStatusForm({form: $("form")});
-    $("#submit-this").on("click", function(e){
-        console.log(form.getFormData());
-    }.bind(this));
-    $("#populate-form").on("click", function(e){
+    const submitFunc =  function(e){
+        console.log(this.getFormData());
+    }.bind(form);
+
+    const populateForm = function(e){
         let content = $("#load-entry").text();
-        console.log(content);
         let data = JSON.parse(content);
-        form.reset();
-        form.setFormData(data);
-    }.bind(this));
+        this.reset();
+        this.setFormData(data);
+    }.bind(form);
+
+    const loadConfirm = new malicAcid.ConfirmationModal({
+            title: "Are you sure?",
+            content: "Are you sure you want to populate this form with the data in the textarea below?"
+        },
+        {
+            yes: populateForm
+        }
+    );
+
+    $("#submit-this").on("click", submitFunc);
+    $("#populate-form").on("click", function(){
+        loadConfirm.open();
+    });
 });
 
 

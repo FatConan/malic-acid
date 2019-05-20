@@ -1,5 +1,6 @@
 @import "reset.css";
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("./themes/theme.css");
 
 html, input, select, textarea, button{
     font-family: 'Roboto', sans-serif;
