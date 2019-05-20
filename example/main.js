@@ -36,6 +36,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
 
     const form = new DeviceStatusForm({form: $("form")});
     const submitFunc =  function(e){
+        alert("Submitted form JSON will be written to the console.");
         console.log(this.getFormData());
         //Allow resubmissions by unlocking the forms
         this.unlock();
@@ -62,7 +63,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
         loadConfirm.open();
     });
     form.on("form:submitted", function(e){
-        alert("from Submission Captured");
+        alert("Form submission captured");
         submitFunc();
     });
 });
