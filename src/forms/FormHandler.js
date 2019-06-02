@@ -3,7 +3,7 @@ import _ from "underscore";
 import Backbone from "backbone";
 import ElementHelper from "../dom/ElementHelper";
 
-export default class FormHandler{
+export default class FormHandler {
     constructor(options){
         this.formElement = $(options.form);
         this.formDefaults = options.formDefaults != null ? options.formDefaults : {};
@@ -30,6 +30,14 @@ export default class FormHandler{
 
     trigger(event){
         this.backbone.trigger(event);
+    }
+
+    on(event, handler){
+        this.backbone.on(event, handler);
+    }
+
+    off(event){
+        this.backbone.off(event);
     }
 
     buildInputReference(formElement){
@@ -173,7 +181,6 @@ export default class FormHandler{
                     }
                 }
             }
-
         }else{
             //An unspecified error occurred
             errorReference.globalErrors.addClass("hasError");
@@ -245,7 +252,6 @@ export default class FormHandler{
 
     setFieldDataFromElement(fieldName, inputReference, formElement, value, silent){
         let meta = inputReference[fieldName];
-        //console.log("SET FIELD DATA", fieldName, meta);
         if(meta){
             let target = formElement.find(meta.tag + "[name=" + fieldName + "]");
             switch (meta.tag) {

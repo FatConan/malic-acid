@@ -47,12 +47,16 @@ module.exports = {
 				test: /\.js$/
 			},
 			{
+				test: /\.html$/,
+				use: {
+					loader: 'text-loader'
+				}
+			},
+			{
 				test: /\.css$/,
-
 				use: [
 					{
 						loader: 'style-loader',
-
 						options: {
 							sourceMap: true
 						}

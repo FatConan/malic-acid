@@ -1,24 +1,13 @@
 require.config({
-    baseUrl: './dist',
+    baseUrl: '../dist',
     paths: {
         'malicacid': ['malicacid.bundle'],
         'malicacidcss': ['malicacidcss.bundle'],
         'jquery': ['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min'],
-        'jquery-ui': ['https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min'],
-        'underscore': ['https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min'],
-        'backbone': ['https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min'],
-        'text': ['https://cdnjs.cloudflare.com/ajax/libs/require-text/2.0.12/text.min'],
-        'domReady': ['./domReady']
-    },
-    shim: {
-        'jquery-ui': ['jquery'],
-        'underscore': {
-            exports: '_'
-        }
     }
 });
 
-require(["malicacid"], function(malicAcid){
+require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     class DeviceStatusForm extends malicAcid.BasicFormWithGenerators{
         constructor(options){
             super(options);
@@ -45,17 +34,38 @@ require(["malicacid"], function(malicAcid){
         }
     }
 
-    const form = new DeviceStatusForm({form: document.getElementsByTagName("form")[0]});
-    document.getElementById("submit-this").addEventListener("click", function(e){
-        console.log(form.getFormData());
-    }.bind(this));
-    document.getElementById("populate-form").addEventListener("click", function(e){
-        let content = document.getElementById("load-entry").innerHTML;
-        console.log(content);
+    const form = new DeviceStatusForm({form: $("form")});
+    const submitFunc =  function(e){
+        alert("Submitted form JSON will be written to the console.");
+        console.log(this.getFormData());
+        //Allow resubmissions by unlocking the forms
+        this.unlock();
+    }.bind(form);
+
+    const populateForm = function(e){
+        let content = $("#load-entry").text();
         let data = JSON.parse(content);
-        form.reset();
-        form.setFormData(data);
-    }.bind(this));
+        this.reset();
+        this.setFormData(data);
+    }.bind(form);
+
+    const loadConfirm = new malicAcid.ConfirmationModal({
+            title: "Are you sure?",
+            content: "Are you sure you want to populate this form with the data in the green text area?"
+        },
+        {
+            yes: populateForm
+        }
+    );
+
+    $("#submit-this").on("click", submitFunc);
+    $("#populate-form").on("click", function(){
+        loadConfirm.open();
+    });
+    form.on("form:submitted", function(e){
+        alert("Form submission captured");
+        submitFunc();
+    });
 });
 
 

@@ -6,11 +6,11 @@ export default class BasicFormWithGenerators extends FormHandlerWithGenerators{
     }
 
     formInteractivityInit(){
-        console.log("BasicForm version")
+        //Override this in subclasses to add form specific reactive behaviour
     }
 
     generatorRowOtherHandler(augmentedGenerator, target){
-
+        //Override this in subclasses to handle additional row button clicks
     }
 
     dataIn(data){

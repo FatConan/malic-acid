@@ -6,7 +6,7 @@ export default class BasicForm extends FormHandler{
     }
 
     formInteractivityInit(){
-        console.log("BasicForm version")
+        //Override this in subclasses to add any form-specific reactive behaviour
     }
 
     dataIn(data){
