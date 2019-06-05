@@ -8,9 +8,25 @@ require.config({
 });
 
 require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
+    class BaseFormOverride extends malicAcid.BasicForm{
+        constructor(options){
+            super(options);
+        }
+
+        formInteractivityInit(oprions){
+            console.log("BaiscForm Overridden form interactivity init");
+        }
+
+    }
+
+
     class DeviceStatusForm extends malicAcid.BasicFormWithGenerators{
         constructor(options){
             super(options);
+        }
+
+        formInteractivityInit(oprions){
+            console.log("Overridden form interactivity init");
         }
 
         dataIn(data){
@@ -34,7 +50,9 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
         }
     }
 
-    const form = new DeviceStatusForm({form: $("form")});
+    const basicForm = new BaseFormOverride({form: $("#basic-form")});
+
+    const form = new DeviceStatusForm({form: $("#form_device")});
     const submitFunc =  function(e){
         alert("Submitted form JSON will be written to the console.");
         console.log(this.getFormData());
