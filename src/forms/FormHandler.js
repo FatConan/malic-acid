@@ -28,8 +28,8 @@ export default class FormHandler {
         this.formInteractivityInit(options);
     }
 
-    trigger(event){
-        this.backbone.trigger(event);
+    trigger(event, data){
+        this.backbone.trigger(event, data);
     }
 
     on(event, handler){
@@ -176,7 +176,7 @@ export default class FormHandler {
 
             if(errorData.errors){
                 for(let fieldName in errorData.errors) {
-                    if (errorData.errors.hasOwnProperty(fieldName)) {
+                    if(errorData.errors.hasOwnProperty(fieldName)) {
                         this.addError(formElement, errorReference, fieldName, errorData.errors[fieldName]);
                     }
                 }
