@@ -8,6 +8,7 @@ export default class FormHandlerWithGenerators extends FormHandler{
     }
 
     formInitialPrepare(options){
+        this.formBespokeSetup(options);
         this.configureFormAutocomplete(options);
 
         this.generators = [];

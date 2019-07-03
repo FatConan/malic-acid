@@ -23,9 +23,14 @@ export default class FormHandler {
     }
 
     formInitialPrepare(options){
+        this.formBespokeSetup(options);
         this.configureFormAutocomplete(options);
         this.setupFormDataAndErrorHandling(options);
         this.formInteractivityInit(options);
+    }
+
+    formBespokeSetup(options){
+
     }
 
     trigger(event, data){
