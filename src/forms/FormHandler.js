@@ -311,7 +311,7 @@ export default class FormHandler {
             }
         }
         if(!silent) {
-            this.trigger("form:setFieldData", fieldName, value);
+            this.trigger("form:setFieldData", {fieldName: fieldName, value: value});
         }
     }
 
