@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: '../dist',
+    baseUrl: './dist',
     paths: {
         'malicacid': ['malicacid.bundle'],
         'malicacidcss': ['malicacidcss.bundle'],
