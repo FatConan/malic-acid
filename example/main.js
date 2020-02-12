@@ -14,11 +14,9 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
         }
 
         formInteractivityInit(oprions){
-            console.log("BaiscForm Overridden form interactivity init");
+            console.log("BasicForm Overridden form interactivity init");
         }
-
     }
-
 
     class DeviceStatusForm extends malicAcid.BasicFormWithGenerators{
         constructor(options){
@@ -51,7 +49,6 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     }
 
     const basicForm = new BaseFormOverride({form: $("#basic-form")});
-
     const form = new DeviceStatusForm({form: $("#form_device")});
     const submitFunc =  function(e){
         alert("Submitted form JSON will be written to the console.");
@@ -76,6 +73,20 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
         }
     );
 
+    const aboutDialog = new malicAcid.ConfirmationModal({
+        title: "About this demonstration",
+        content: "This demonstration shows how Malic Acid can be used to harness an HTML form for use with a JSON rest API by allowing " +
+            " the submission of form data as JSON and the population of HTML elements from a JSON API response. Malic Acid supports the processing and display of " +
+            " error messages as well as adding interactivity to form components, allowing for more versatile and dynamic forms to be built. \n\n" +
+            " Would you like to learn more about Malic Acid?"
+        },
+        {
+            yes: function(){
+                window.location.href = "https://github.com/FatConan/malic-acid";
+            }
+        }
+    );
+
     $("#submit-this").on("click", submitFunc);
     $("#populate-form").on("click", function(){
         loadConfirm.open();
@@ -83,6 +94,10 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     form.on("form:submitted", function(e){
         alert("Form submission captured");
         submitFunc();
+    });
+    $("a.about").on("click", function(e){
+        e.preventDefault();
+        aboutDialog.open();
     });
 });
 
