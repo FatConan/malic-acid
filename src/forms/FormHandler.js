@@ -78,13 +78,17 @@ export default class FormHandler {
             this.formElement.prop("autocomplete", "off");
         }
     }
-    setupFormDataAndErrorHandling(options){
-        //Instantiate these here to avoid having them shared between instances
+
+    reconfigureInputs(){
         const references = this.buildErrorReference(this.formElement);
         this.errorReference = references.errorReference;
         this.inputRows = references.inputRows;
-
         this.inputReference = this.buildInputReference(this.formElement);
+    }
+
+    setupFormDataAndErrorHandling(options){
+        //Instantiate these here to avoid having them shared between instances
+        this.reconfigureInputs();
 
         if(this.formSubmitRepression) {
             this.formElement.off("submit");
