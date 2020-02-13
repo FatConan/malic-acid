@@ -7,8 +7,8 @@ export default class BaseClass{
     //working with common features we find ourselves exploring.
     constructor(options){
         this.configure(options);
-        this.elementHelper = new ElementHelper();
         this.hookEventListener();
+        this.elementHelper = ElementHelper;
         this.requestParameters = RequestParameters;
     }
 
