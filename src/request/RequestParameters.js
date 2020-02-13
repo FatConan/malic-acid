@@ -1,5 +1,5 @@
 export default class RequestParameters{
-    getQueryVariable(variable, preventCollapse) {
+    static getQueryVariable(variable, preventCollapse) {
         let query = window.location.search.substring(1);
         let vars = query.split("&");
         let returnArray = [];
