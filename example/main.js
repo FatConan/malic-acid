@@ -8,9 +8,9 @@ require.config({
 });
 
 require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
-    window.eventHandler = new malicAcid.HighLevelEventHandler({target: "html"});
+    window.eventHandler = new malicAcid.helpers.events.HighLevelEventHandler({target: "html"});
 
-    class BaseFormOverride extends malicAcid.BasicForm{
+    class BaseFormOverride extends malicAcid.forms.BasicForm{
         constructor(options){
             super(options);
         }
@@ -20,7 +20,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
         }
     }
 
-    class DeviceStatusForm extends malicAcid.BasicFormWithGenerators{
+    class DeviceStatusForm extends malicAcid.forms.BasicFormWithGenerators{
         constructor(options){
             super(options);
         }

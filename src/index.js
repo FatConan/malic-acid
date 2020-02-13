@@ -5,6 +5,8 @@ import BasicForm from "./forms/BasicForm";
 import FormHandlerWithGenerators from "./forms/FormHandlerWithGenerators";
 import BasicFormWithGenerators from "./forms/BasicFormWithGenerators";
 import ConfirmationModal from "./modal/ConfirmationModal";
+import forms from "./forms";
+import helpers from "./helpers";
 export {
     ConfirmationModal,
     ElementHelper,
@@ -12,5 +14,7 @@ export {
     FormHandler,
     BasicForm,
     FormHandlerWithGenerators,
-    BasicFormWithGenerators
+    BasicFormWithGenerators,
+    forms,
+    helpers
 };

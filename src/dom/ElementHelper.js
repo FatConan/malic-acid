@@ -45,4 +45,50 @@ export default class ElementHelper{
         }
         return false;
     }
+
+    //Methods for performing quick sort on objects, allows sorting on various items based on a given key
+    swap(items, firstIndex, secondIndex){
+        let temp = items[firstIndex];
+        items[firstIndex] = items[secondIndex];
+        items[secondIndex] = temp;
+    }
+
+    partition(items, itemKey, left, right){
+        let pivot = items[Math.floor((right + left) / 2)][itemKey];
+        let i = left;
+        let j = right;
+
+        while(i <= j){
+            while(items[i][itemKey] < pivot){
+                i++;
+            }
+
+            while(items[j][itemKey] > pivot){
+                j--;
+            }
+
+            if(i <= j){
+                this.swap(items, i, j);
+                i++;
+                j--;
+            }
+        }
+        return i;
+    }
+
+    quickSort(items, itemKey, left, right){
+        let index;
+        if(items.length > 1){
+            left = typeof left !== "number" ? 0 : left;
+            right = typeof right !== "number" ? items.length-1 : right;
+            index = this.partition(items, itemKey, left, right);
+            if(left < index-1){
+                this.quickSort(items, itemKey, left, index-1);
+            }
+            if(index < right){
+                this.quickSort(items, itemKey, index, right);
+            }
+        }
+        return items;
+    }
 }

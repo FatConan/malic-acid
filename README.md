@@ -35,6 +35,10 @@ Malic user JQuery and underscore for making things like DOM navigation and templ
 
 ### Element Helper
 
+The ElementHelper class `malicacid.ElementHelper` contains collection of methods to help 
+
+### High Level Event Handler
+
 ### Base Classes
 
 Malic offers a few b
