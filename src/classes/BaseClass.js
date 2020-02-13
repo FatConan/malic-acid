@@ -6,10 +6,16 @@ export default class BaseClass{
     //A base class that can be extended that comes fitted with some helper methods for manipulating the dom and
     //working with common features we find ourselves exploring.
     constructor(options){
-        this.assimilate(options);
+        this.configure(options);
         this.elementHelper = new ElementHelper();
         this.hookEventListener();
         this.requestParameters = RequestParameters;
+    }
+
+    //Handle option management, override this in extending classes if required to set defaults etc,
+    //by by default just do a straight assimilation
+    configure(options){
+        this.assimilate(options);
     }
 
     //Add options entries directly on to instance
