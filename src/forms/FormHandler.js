@@ -17,7 +17,7 @@ export default class FormHandler {
         this.isDirty = false;
 
         this.backbone = _.extend({}, Backbone);
-        this.elementHelper = new ElementHelper();
+        this.elementHelper = ElementHelper;
 
         this.formInitialPrepare(options);
     }
