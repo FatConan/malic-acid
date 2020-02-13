@@ -8,6 +8,8 @@ require.config({
 });
 
 require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
+    window.eventHandler = new malicAcid.HighLevelEventHandler({target: "html"});
+
     class BaseFormOverride extends malicAcid.BasicForm{
         constructor(options){
             super(options);
@@ -50,7 +52,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
 
     const basicForm = new BaseFormOverride({form: $("#basic-form")});
     const form = new DeviceStatusForm({form: $("#form_device")});
-    const submitFunc =  function(e){
+    const submitFunc =  function(e, args){
         alert("Submitted form JSON will be written to the console.");
         console.log(this.getFormData());
         //Allow resubmissions by unlocking the forms
@@ -87,17 +89,19 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
         }
     );
 
-    $("#submit-this").on("click", submitFunc);
-    $("#populate-form").on("click", function(){
+    //Simple demonstration of the high level event handler
+    window.eventHandler.addListener("#submit-this", submitFunc);
+    window.eventHandler.addListener("#populate-form", function(e, args){
         loadConfirm.open();
     });
+    window.eventHandler.addListener("a.about", function(e, args){
+        e.preventDefault();
+        aboutDialog.open();
+    });
+
     form.on("form:submitted", function(e){
         alert("Form submission captured");
         submitFunc();
-    });
-    $("a.about").on("click", function(e){
-        e.preventDefault();
-        aboutDialog.open();
     });
 });
 
