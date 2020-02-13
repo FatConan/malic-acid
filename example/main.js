@@ -8,7 +8,7 @@ require.config({
 });
 
 require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
-    window.eventHandler = new malicAcid.helpers.events.HighLevelEventHandler({target: "html"});
+    malicAcid.helpers.events.HighLevelEventHandler.hookup({target: "html"});
 
     class BaseFormOverride extends malicAcid.forms.BasicForm{
         constructor(options){
