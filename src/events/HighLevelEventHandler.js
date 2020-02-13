@@ -13,7 +13,7 @@ export default class HighLevelEventHandler{
      */
 
     constructor(options){
-        this.elementHelper = new ElementHelper();
+        this.elementHelper = ElementHelper;
         this.touchscreen = options.touchscreen === true;
         this.debug = false;
         this.nullAction = function(e){};
