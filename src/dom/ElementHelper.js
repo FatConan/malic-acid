@@ -19,7 +19,7 @@ export default class ElementHelper{
     }
 
     static findParentTag(element, tagName){
-        while(element && element.tagName !== tagName.toUpper() && element.tagName !== null){
+        while(element && element.tagName !== tagName.toUpperCase() && element.tagName !== null){
             element = element.parentNode;
         }
         return element;
