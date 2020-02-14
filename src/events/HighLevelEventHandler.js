@@ -38,7 +38,9 @@ export default class HighLevelEventHandler{
     }
 
     static hookup(options){
-        window.eventHandler = new this(options);
+        if(!window.eventHandler){
+            window.eventHandler = new this(options);
+        }
     }
 
     //Add a listener for a specific element and a corresponding action to take
