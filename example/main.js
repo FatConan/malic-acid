@@ -15,7 +15,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
             super(options);
         }
 
-        formInteractivityInit(oprions){
+        formInteractivityInit(options){
             console.log("BasicForm Overridden form interactivity init");
         }
     }
@@ -23,6 +23,7 @@ require(["jquery", "malicacid", "malicacidcss"], function($, malicAcid){
     class DeviceStatusForm extends malicAcid.forms.BasicFormWithGenerators{
         constructor(options){
             super(options);
+
         }
 
         formInteractivityInit(oprions){

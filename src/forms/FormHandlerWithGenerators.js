@@ -45,11 +45,9 @@ export default class FormHandlerWithGenerators extends FormHandler{
             };
 
             this.generators.push(augmentedGenerator);
-            $generator.on("click", function(e){
-                if(e.target.matches("button")){
-                    e.preventDefault();
-                    this.generatorHandler(augmentedGenerator, e.target);
-                }
+            this.eventHandler.addListener(".generator button",  function(e, args){
+                e.preventDefault();
+                this.generatorHandler(augmentedGenerator, args.matchedEl);
             }.bind(this));
         }.bind(this));
     }

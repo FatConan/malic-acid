@@ -2,6 +2,7 @@ import $ from "jquery";
 import _ from "underscore";
 import Backbone from "backbone";
 import ElementHelper from "../dom/ElementHelper";
+import HighLevelEventHandler from "../events/HighLevelEventHandler";
 
 export default class FormHandler{
     constructor(options){
@@ -18,6 +19,7 @@ export default class FormHandler{
 
         this.backbone = _.extend({}, Backbone);
         this.elementHelper = ElementHelper;
+        this.eventHandler = HighLevelEventHandler.grabHandler();
 
         this.formInitialPrepare(options);
     }

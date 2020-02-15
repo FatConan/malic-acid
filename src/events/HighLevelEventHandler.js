@@ -16,7 +16,8 @@ export default class HighLevelEventHandler{
         this.elementHelper = ElementHelper;
         this.touchscreen = options.touchscreen === true;
         this.debug = false;
-        this.nullAction = function(e){};
+        this.nullAction = function(e){
+        };
 
         //We can specify in the options a loadWarning to function to fire on the event that we hit a link that looks
         //like it should have a javascript action associated with it (a link with <a href="#">) to indicator to the
@@ -24,10 +25,10 @@ export default class HighLevelEventHandler{
 
         //Should we actually want to a link to link to # (such as a top of page link) we can specify a null listener on that
         //element.
-        if(options.loadingWarning) {
+        if(options.loadingWarning){
             this.loadingWarning = options.loadingWarning;
-        }else {
-            this.loadingWarning = function () {
+        }else{
+            this.loadingWarning = function(){
                 alert("Not quite ready! The page is currently loading and this function isn't quite read yet, please try again.");
             };
         }
@@ -42,6 +43,15 @@ export default class HighLevelEventHandler{
             window.eventHandler = new this(options);
         }
     }
+
+    static grabHandler(){
+        if(window.eventHandler){
+            return window.eventHandler;
+        }
+        throw "HighLevelEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
+        " handler by calling HighLevelEventHandler.hookup({options})";
+    }
+
 
     //Add a listener for a specific element and a corresponding action to take
     addListener(targetMatch, action){
@@ -130,7 +140,7 @@ export default class HighLevelEventHandler{
                     //the first being the original event, the second being a collection of pre-prepared elements containing
                     //the original e.target element and its jquery extended version as well as the matched element and
                     //its jquery extended version and the string user to match the element.
-                    action(e, {el: el, $el:$el, matchedEl: match[0], $matchedEl: $(match[0]), trigger: match[1]});
+                    action(e, {el: el, $el: $el, matchedEl: match[0], $matchedEl: $(match[0]), trigger: match[1]});
                 }.bind(this));
             }else if(simpleTopLink){
                 /*
