@@ -22,79 +22,82 @@ const path = require('path');
  *
  */
 
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+//const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-	module: {
-		rules: [
-			{
-				include: [path.resolve(__dirname, 'src')],
-				loader: 'babel-loader',
+    module: {
+        rules: [
+            {
+                include: [path.resolve(__dirname, 'src')],
+                loader: 'babel-loader',
 
-				options: {
-					plugins: ['syntax-dynamic-import'],
+                options: {
+                    plugins: ['syntax-dynamic-import'],
 
-					presets: [
-						[
-							'@babel/preset-env',
-							{
-								modules: false
-							}
-						]
-					]
-				},
+                    presets: [
+                        [
+                            '@babel/preset-env',
+                            {
+                                modules: false
+                            }
+                        ]
+                    ]
+                },
 
-				test: /\.js$/
-			},
-			{
-				test: /\.html$/,
-				use: {
-					loader: 'text-loader'
-				}
-			},
-			{
-				test: /\.css$/,
-				use: [
-					{
-						loader: 'style-loader',
-						options: {
-							sourceMap: true
-						}
-					},
-					{
-						loader: 'css-loader'
-					}
-				]
-			}
-		]
-	},
+                test: /\.js$/
+            },
+            {
+                test: /\.html$/,
+                use: {
+                    loader: 'text-loader'
+                }
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                        options: {
+                            injectType: 'singletonStyleTag'
+                        }
+                    },
+                    {
+                        loader: 'css-loader'
+                    }
+                ]
+            }
+        ]
+    },
 
-	entry: {
-		malicacid: path.resolve(__dirname, "src/index.js"),
-		malicacidcss: path.resolve(__dirname, "src/css.js")
-	},
+    entry: {
+        malicacid: path.resolve(__dirname, "src/index.js"),
+        malicacidcss: path.resolve(__dirname, "src/css.js")
+    },
 
-	output: {
-		filename: "[name].bundle.js",
-		chunkFilename: "[name].bundle.js",
-		libraryTarget: "amd"
-	},
+    output: {
+        filename: "[name].bundle.js",
+        chunkFilename: "[name].bundle.js",
+        libraryTarget: "amd"
+    },
 
-	mode: 'development',
+    mode: 'development',
 
-	optimization: {
-		splitChunks: {
-			cacheGroups: {
-				vendors: {
-					priority: -10,
-					test: /[\\/]node_modules[\\/]/
-				}
-			},
+    optimization: {
+        /*splitChunks: {
+            cacheGroups: {
+                vendors: {
+                    priority: -10,
+                    test: /[\\/]node_modules[\\/]/
+                }
+            },
 
-			chunks: 'async',
-			minChunks: 1,
-			minSize: 30000,
-			name: true
-		}
-	}
+            chunks: 'async',
+            minChunks: 1,
+            minSize: 30000,
+            name: true
+        }*/
+        minimize: true,
+        minimizer: [new TerserPlugin()]
+    }
 };

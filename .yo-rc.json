@@ -40,7 +40,7 @@
                   {
                     "loader": "'style-loader'",
                     "options": {
-                      "sourceMap": true
+                        "injectType": 'singletonStyleTag'
                     }
                   },
                   {
