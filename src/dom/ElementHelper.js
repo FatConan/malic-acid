@@ -18,13 +18,54 @@ export default class ElementHelper{
         return null;
     }
 
+    /**
+     * Legacy alias for findParentByTag
+     * @param element
+     * @param tagName
+     */
     static findParentTag(element, tagName){
+        return ElementHelper.findParentByTag(element, tagName);
+    }
+
+    /**
+     * Find the first element tracking up the provided element's branch that matches the provided tag string
+     * @param element
+     * @param tagName
+     * @returns {*}
+     */
+    static findParentByTag(element, tagName){
         while(element && element.tagName !== tagName.toUpperCase() && element.tagName !== null){
             element = element.parentNode;
         }
         return element;
     }
 
+    /**
+     * Find the first element tracking up the provided element's branch that matches the provided string
+     * @param element
+     * @param match
+     * @returns {null|{matches}|*}
+     */
+    static findParentByMatch(element, match){
+        while(element && element.tagName !== null){
+            if(element.matches){
+                if(element.matches(match)){
+                    return element;
+                }
+            }
+            element = element.parentNode;
+        }
+        return null;
+    }
+
+    /**
+     * This method is used when registering events and is used internally to track up from the target element to
+     * see if we catch an match and element in its branch. We wil then return that element and any registered event actions
+     * associated with it
+     * @param element - A DOM element
+     * @param matchObj - An event handler object
+     * @returns {*[][]|({matches}|*|string)[]}
+     */
     static parentMatches(element, matchObj){
         while(element && element.tagName !== null){
             if(element.matches){
