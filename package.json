@@ -1,6 +1,6 @@
 {
   "name": "malic-acid",
-  "version": "2020.02.3",
+  "version": "2020.02.4",
   "description": "A javascript  HTML form handling library for use atop formic-acid.",
   "main": "index.js",
   "directories": {

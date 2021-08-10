@@ -82,6 +82,14 @@ export default class HighLevelEventHandler{
         }
     }
 
+    report(listenerTarget){
+        if(this.listeners.hasOwnProperty(listenerTarget)){
+            console.log(listenerTarget, this.listeners[listenerTarget])
+        }else{
+            console.log(`No event listeners found for ${listenerTarget}`);
+        }
+    }
+
     //Listens for events and the top level and performs any DOM traversal required to accommodate the the listener's intended
     //target.
     listen(){
