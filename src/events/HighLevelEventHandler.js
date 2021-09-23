@@ -1,4 +1,5 @@
 import $ from "jquery";
+import _ from "lodash";
 import ElementHelper from "../dom/ElementHelper";
 
 export default class HighLevelEventHandler{
@@ -14,6 +15,7 @@ export default class HighLevelEventHandler{
 
     constructor(options){
         this.elementHelper = ElementHelper;
+        this.listenerGroupName = options.groupName;
         this.touchscreen = options.touchscreen === true;
         this.debug = false;
         this.nullAction = function(e){
@@ -35,7 +37,10 @@ export default class HighLevelEventHandler{
 
         this.target = $(options.target);
         this.listeners = {};
-        this.listen();
+        this.listenerPluginGroups = {};
+        if(!options.groupName){
+            this.listen();
+        }
     }
 
     static hookup(options){
@@ -52,6 +57,15 @@ export default class HighLevelEventHandler{
         " handler by calling HighLevelEventHandler.hookup({options})";
     }
 
+    addListenerGroup(groupName){
+        let newGroupListener = new HighLevelEventHandler({groupName: groupName, touchscreen: this.touchscreen});
+        this.listenerPluginGroups[groupName] = newGroupListener;
+        return newGroupListener;
+    }
+
+    removeListenerGroup(groupName){
+        delete this.listenerPluginGroups[groupName];
+    }
 
     //Add a listener for a specific element and a corresponding action to take
     addListener(targetMatch, action){
@@ -75,9 +89,20 @@ export default class HighLevelEventHandler{
 
     //List all the currently registered events for debug purposes
     list(){
-        for(let a in this.listeners){
-            if(this.listeners.hasOwnProperty(a)){
-                console.log(a, this.listeners[a]);
+        const listListeners = function(listenerObj){
+            for(let a in listenerObj){
+                if(listenerObj.hasOwnProperty(a)){
+                    console.log(a,listenerObj[a]);
+                }
+            }
+        }
+
+        console.log("Base Listeners:");
+        listListeners(this.listeners);
+        for(let g in this.listenerPluginGroups){
+            if(this.listenerPluginGroups.hasOwnProperty(g)){
+                console.log(`Plugin Listeners [${g}]:`);
+                listListeners(this.listenerPluginGroups[g].listeners);
             }
         }
     }
@@ -87,6 +112,12 @@ export default class HighLevelEventHandler{
             console.log(listenerTarget, this.listeners[listenerTarget])
         }else{
             console.log(`No event listeners found for ${listenerTarget}`);
+        }
+    }
+
+    clearListeners(listenerTarget){
+        if(this.listeners.hasOwnProperty(listenerTarget)){
+            delete this.listeners[listenerTarget];
         }
     }
 
@@ -131,9 +162,16 @@ export default class HighLevelEventHandler{
                 simpleTopLink = true;
             }
 
+            let activeListeners = _.extend({}, this.listeners);
+            for(let group in this.listenerPluginGroups){
+                if(this.listenerPluginGroups.hasOwnProperty(group)){
+                    activeListeners = _.extend(activeListeners, this.listenerPluginGroups[group].listeners);
+                }
+            }
+
             //From the trigger element work up through the dom until we find an matching event handler, if we find a match return it
             // as well as the list of actions associated with it.
-            let match = this.elementHelper.parentMatches(el, this.listeners);
+            let match = this.elementHelper.parentMatches(el, activeListeners);
             if(match !== null && match[0] !== null){
                 /*
                   Check to see if we have a match in the listener list for the object being clicked by tracking up through the
