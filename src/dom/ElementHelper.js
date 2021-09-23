@@ -87,6 +87,17 @@ export default class ElementHelper{
         return false;
     }
 
+    static matches(element, matchObj){
+        if(element && element.matches){
+            for(let m in matchObj){
+                if(matchObj.hasOwnProperty(m) && element.matches(m)){
+                    return [element, m, matchObj[m]];
+                }
+            }
+        }
+        return [null, null, []];
+    }
+
     //Methods for performing quick sort on objects, allows sorting on various items based on a given key
     static swap(items, firstIndex, secondIndex){
         let temp = items[firstIndex];
