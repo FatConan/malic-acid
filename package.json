@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/FatConan/malic-acid#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
+    "@babel/cli": "^7.18.10",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "babel-loader": "^8.1.0",
@@ -36,10 +36,11 @@
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
     "backbone": "^1.4.0",
+    "caniuse-lite": "^1.0.30001393",
     "core-js": "^3.3.5",
-    "jquery": "^3.5.0",
-    "jquery-ui": "^1.12.1",
-    "jquery-ui-bundle": "^1.12.1",
+    "jquery": "^3.6.1",
+    "jquery-ui": "1.13.2",
+    "jquery-ui-bundle": "^1.12.1-migrate",
     "lodash": "^4.17.21",
     "underscore": "^1.12.1"
   }

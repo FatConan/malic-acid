@@ -1,6 +1,7 @@
 import $ from "jquery";
 import _ from "underscore";
 import FormHandler from "./FormHandler";
+import ElementHelper from "../dom/ElementHelper";
 
 export default class FormHandlerWithGenerators extends FormHandler{
     constructor(options){
@@ -37,18 +38,25 @@ export default class FormHandlerWithGenerators extends FormHandler{
         $(generatorCollections).each(function(i, generator){
             let $generator = $(generator);
             let template = this.unescapeTemplate($generator.data("template"));
+            let generatorID = ElementHelper.guid();
+            $generator.attr("data-generatedid", generatorID);
+
             let augmentedGenerator = {
                 generator: $generator,
+                generatorId: generatorID,
                 generatorRowStore: $generator.find(".generator_rows"),
                 generatorIndex: i,
                 templateRow: _.template(template)
             };
 
             this.generators.push(augmentedGenerator);
-            this.eventHandler.addListener(".generator button",  function(e, args){
-                e.preventDefault();
-                this.generatorHandler(augmentedGenerator, args.matchedEl);
-            }.bind(this));
+            this.eventHandler.addListener(`.generator[data-generatedid="${generatorID}"] button`,  function(){
+                const generator = augmentedGenerator;
+                return function(e, args){
+                    e.preventDefault();
+                    this.generatorHandler(generator, args.matchedEl);
+                }.bind(this)
+            }.bind(this)());
         }.bind(this));
     }
 
