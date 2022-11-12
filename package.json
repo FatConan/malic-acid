@@ -31,7 +31,7 @@
     "terser-webpack-plugin": "^2.3.8",
     "text-loader": "0.0.1",
     "webpack": "^4.42.1",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
