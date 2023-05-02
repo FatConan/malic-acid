@@ -20,6 +20,7 @@
 
 .form .input-row label,
 .form .input-row textarea,
+.form .input-row div[contenteditable],
 .form .input-row select,
 .form .input-row input[type="text"]{
     display: block;
@@ -29,12 +30,14 @@
 }
 
 .form .input-row textarea:disabled,
+.form .input-row div[contenteditable]:disabled,
 .form .input-row select:disabled,
 .form .input-row input[type="text"]:disabled{
     background-color: #dedede;
 }
 
 .form .input-row textarea,
+.form .input-row div[contenteditable],
 .form .input-row select,
 .form .input-row input[type="text"]{
     border: 1px solid #dedede;
@@ -42,6 +45,7 @@
 }
 
 .form .input-row textarea:focus,
+.form .input-row div[contenteditable]:focus,
 .form .input-row select:focus,
 .form .input-row input[type="text"]:focus{
     border: 1px solid #20ADED;
@@ -50,6 +54,7 @@
 }
 
 .form .input-row.hasError textarea,
+.form .input-row div[contenteditable],
 .form .input-row.hasError select,
 .form .input-row.hasError input[type="text"]{
     background-color: #fff1ef;
@@ -66,7 +71,8 @@
     color: red;
 }
 
-.form .input-row textarea{
+.form .input-row textarea,
+.form .input-row div[contenteditable]{
     min-height: 20em;
 }
 

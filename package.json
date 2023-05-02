@@ -36,7 +36,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
     "backbone": "^1.4.0",
-    "caniuse-lite": "^1.0.30001393",
     "core-js": "^3.3.5",
     "jquery": "^3.6.1",
     "jquery-ui": "1.13.2",

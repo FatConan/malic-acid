@@ -59,6 +59,10 @@ export default class FormHandler{
             inputReference[$(e).attr("name")] = {tag: e.tagName, type: $(e).attr("type"), id: $(e).attr("id")};
         }.bind(this));
 
+        formElement.find("div[contenteditable]").each(function(i, e){
+            inputReference[$(e).data("name")] = {tag: e.tagName, type: "contenteditable", id: $(e).attr("id")};
+        }.bind(this));
+
         return inputReference;
     }
 
@@ -311,6 +315,9 @@ export default class FormHandler{
                 case "TEXTAREA":
                     target.val(value);
                     break;
+                case "DIV":
+                    target.text(value);
+                    break;
                 default:
                     target.val(value);
                     break;
@@ -364,6 +371,8 @@ export default class FormHandler{
                     return target.val();
                 case "TEXTAREA":
                     return target.val();
+                case "DIV":
+                    return target.html();
                 default:
                     return target.val();
             }
