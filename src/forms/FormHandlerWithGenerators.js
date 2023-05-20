@@ -75,7 +75,7 @@ export default class FormHandlerWithGenerators extends FormHandler{
     }
 
     generatorDeleteRowButtonHandler(augmentedGenerator, target){
-         let div = this.elementHelper.findParentTag(target, "DIV");
+         let div = this.elementHelper.findParentByMatch(target, "div.generator-input-row");
          if(div !== null){
              $(div).remove();
          }
