@@ -1,8 +1,7 @@
-import $ from "jquery";
+import "jquery";
 import _ from "underscore";
-import Backbone from "backbone";
-import ElementHelper from "../dom/ElementHelper";
-import HighLevelEventHandler from "../events/HighLevelEventHandler";
+import ElementHelper from "../dom/ElementHelper.js";
+import HighLevelEventHandler from "../events/HighLevelEventHandler.js";
 
 export default class FormHandler{
     constructor(options){
@@ -17,7 +16,6 @@ export default class FormHandler{
         this.formLocked = false;
         this.isDirty = false;
 
-        this.backbone = _.extend({}, Backbone);
         this.elementHelper = ElementHelper;
         this.eventHandler = HighLevelEventHandler.grabHandler();
 
@@ -35,16 +33,17 @@ export default class FormHandler{
 
     }
 
-    trigger(event, data){
-        this.backbone.trigger(event, data);
+    trigger(eventName, data){
+        let event = new CustomEvent(eventName, {detail: data});
+        this.formElement[0].dispatchEvent(event);
     }
 
     on(event, handler){
-        this.backbone.on(event, handler);
+        this.formElement[0].addListener(event, handler);
     }
 
     off(event){
-        this.backbone.off(event);
+        this.formElement[o].removeEventListener(event);
     }
 
     buildInputReference(formElement){

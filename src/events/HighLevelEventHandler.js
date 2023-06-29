@@ -1,6 +1,6 @@
-import $ from "jquery";
-import _ from "lodash";
-import ElementHelper from "../dom/ElementHelper";
+import "jquery";
+import _ from "underscore";
+import ElementHelper from "../dom/ElementHelper.js";
 
 export default class HighLevelEventHandler{
     /** The HighLevelEventHandler is a touch/click event tracker that registers once at document level as a single listener

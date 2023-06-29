@@ -1,6 +1,6 @@
 import _ from "underscore";
-import ElementHelper from "../dom/ElementHelper";
-import RequestParameters from "../request/RequestParameters";
+import ElementHelper from "../dom/ElementHelper.js";
+import RequestParameters from "../request/RequestParameters.js";
 
 export default class BaseClass{
     //A base class that can be extended that comes fitted with some helper methods for manipulating the dom and

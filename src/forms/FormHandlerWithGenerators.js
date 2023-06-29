@@ -1,7 +1,7 @@
-import $ from "jquery";
+import "jquery";
 import _ from "underscore";
-import FormHandler from "./FormHandler";
-import ElementHelper from "../dom/ElementHelper";
+import FormHandler from "./FormHandler.js";
+import ElementHelper from "../dom/ElementHelper.js";
 
 export default class FormHandlerWithGenerators extends FormHandler{
     constructor(options){
@@ -16,7 +16,7 @@ export default class FormHandlerWithGenerators extends FormHandler{
         this.generatorAdd();
 
         this.setupFormDataAndErrorHandling(options);
-        this.backbone.on("form:reset", function(){
+        this.on("form:reset", function(e){
             $(this.generators).each(function(i, g){
                 g.generatorRowStore.empty();
             });

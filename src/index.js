@@ -1,13 +1,14 @@
-import ElementHelper from "./dom/ElementHelper";
-import HighLevelEventHandler from "./events/HighLevelEventHandler";
-import FormHandler from "./forms/FormHandler";
-import BasicForm from "./forms/BasicForm";
-import FormHandlerWithGenerators from "./forms/FormHandlerWithGenerators";
-import BasicFormWithGenerators from "./forms/BasicFormWithGenerators";
-import ConfirmationModal from "./modal/ConfirmationModal";
-import forms from "./forms";
-import helpers from "./helpers";
-import events from "./events";
+import ElementHelper from "./dom/ElementHelper.js";
+import HighLevelEventHandler from "./events/HighLevelEventHandler.js";
+import FormHandler from "./forms/FormHandler.js";
+import BasicForm from "./forms/BasicForm.js";
+import FormHandlerWithGenerators from "./forms/FormHandlerWithGenerators.js";
+import BasicFormWithGenerators from "./forms/BasicFormWithGenerators.js";
+import ConfirmationModal from "./modal/ConfirmationModal.js";
+import forms from "./forms/index.js";
+import helpers from "./helpers.js";
+import events from "./events/index.js";
+
 export {
     ConfirmationModal,
     ElementHelper,

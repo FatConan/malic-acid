@@ -1,5 +1,5 @@
-import HighLevelEventHandler from "./HighLevelEventHandler";
-import HighLevelKeyPressEventHandler from "./HighLevelKeyPressEventHandler";
+import HighLevelEventHandler from "./HighLevelEventHandler.js";
+import HighLevelKeyPressEventHandler from "./HighLevelKeyPressEventHandler.js";
 
 const events = {
     HighLevelEventHandler,
