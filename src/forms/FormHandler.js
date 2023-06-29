@@ -39,7 +39,7 @@ export default class FormHandler{
     }
 
     on(event, handler){
-        this.formElement[0].addListener(event, handler);
+        this.formElement[0].addEventListener(event, handler);
     }
 
     off(event){

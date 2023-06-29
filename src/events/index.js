@@ -6,4 +6,8 @@ const events = {
     HighLevelKeyPressEventHandler
 };
 
+export {
+    HighLevelEventHandler,
+    HighLevelKeyPressEventHandler
+};
 export default events;

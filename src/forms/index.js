@@ -11,3 +11,11 @@ const forms = {
 };
 
 export default forms;
+
+export {
+    FormHandler,
+    BasicForm,
+    FormHandlerWithGenerators,
+    BasicFormWithGenerators
+};
+
