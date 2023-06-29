@@ -50,11 +50,15 @@ export default class SortableTableView extends ListeningClass{
                         $el.addClass(direction);
 
                         let column = -1;
-                        $table.find("thead th").each(function(i, th){
-                            if(th === el){
-                                column = i;
+                        let i = 0;
+                        for(let th of $table.find("thead th")){
+                            if(!$(th).hasClass("no-data")){
+                                if(th === el){
+                                    column = i;
+                                }
+                                i++;
                             }
-                        });
+                        }
 
                         this.sortTable($table, direction, column);
                     }
