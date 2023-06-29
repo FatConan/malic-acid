@@ -1,6 +1,4 @@
 import BaseClass from "./BaseClass.js";
-import ElementHelper from "../dom/ElementHelper";
-import RequestParameters from "../request/RequestParameters";
 
 export default class ListeningClass extends BaseClass{
     constructor(options){

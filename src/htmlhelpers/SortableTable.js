@@ -1,4 +1,4 @@
-import $ from "jquery";
+import "jquery";
 import _ from "underscore";
 import ListeningClass from "../classes/ListeningClass.js";
 
