@@ -1,6 +1,4 @@
-import {HighLevelEventHandler} from "./src/events/index.js";
-import {BasicForm, BasicFormWithGenerators} from "./src/forms/index.js";
-import ConfirmationModal from "./src/modal/ConfirmationModal.js";
+import {HighLevelEventHandler, BasicForm, BasicFormWithGenerators, ConfirmationModal} from "malicacid";
 
 HighLevelEventHandler.hookup({target: "html"});
 

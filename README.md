@@ -22,6 +22,10 @@ Install Node and run:
 npx webpack
 ```
 
+```
+npx esbuild --bundle src/index.js --outdir=dist --external:jquery --external:underscore --external:jquery-ui --minify --sourcemap
+```
+
 To create the AMD library in the dist folder.
 
 You may also use the provided deploy script in `/deploy/deploy.py` that will perform the above build and copy the resultant
