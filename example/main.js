@@ -1,5 +1,7 @@
 import {HighLevelEventHandler, BasicForm, BasicFormWithGenerators, ConfirmationModal} from "malicacid";
+import {css} from "malicacid";
 
+css.formsCSS(); //Add form CSS
 HighLevelEventHandler.hookup({target: "html"});
 
 class BaseFormOverride extends BasicForm {

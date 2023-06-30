@@ -4,6 +4,7 @@ import ConfirmationModal from "./modal/ConfirmationModal.js";
 import SortableTable from "./htmlhelpers/SortableTable.js";
 import {FormHandler, BasicForm, FormHandlerWithGenerators, BasicFormWithGenerators} from "./forms/index.js";
 import helpers from "./helpers.js";
+import css from "./css.js";
 
 export {
     ConfirmationModal,
@@ -15,5 +16,6 @@ export {
     BasicForm,
     FormHandlerWithGenerators,
     BasicFormWithGenerators,
-    helpers
+    helpers,
+    css
 };
