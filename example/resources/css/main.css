@@ -1,6 +1,6 @@
-@import url("./reset.css");
+@import url("reset.css");
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-@import url("./themes/theme.css");
+@import url("/resources/themes/theme.css");
 
 html, input, select, textarea, div[contenteditable], button{
     font-family: 'Roboto', sans-serif;

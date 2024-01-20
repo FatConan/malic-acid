@@ -55,6 +55,7 @@ export default class SortableTableView extends ListeningClass{
                             if(!$(th).hasClass("no-data")){
                                 if(th === el){
                                     column = i;
+                                    break;
                                 }
                                 i++;
                             }
