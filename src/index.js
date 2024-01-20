@@ -1,3 +1,5 @@
+import BasicClass from "./classes/BaseClass.js";
+import ListeningClass from "./classes/ListeningClass.js";
 import ElementHelper from "./dom/ElementHelper.js";
 import {HighLevelEventHandler, HighLevelKeyPressEventHandler} from "./events/index.js";
 import ConfirmationModal from "./modal/ConfirmationModal.js";
@@ -13,6 +15,8 @@ export {
     HighLevelEventHandler,
     HighLevelKeyPressEventHandler,
     FormHandler,
+    BasicClass,
+    ListeningClass,
     BasicForm,
     FormHandlerWithGenerators,
     BasicFormWithGenerators,
