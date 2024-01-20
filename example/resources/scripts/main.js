@@ -1,3 +1,5 @@
+import "jquery";
+import "jquery-ui";
 import {HighLevelEventHandler, BasicForm, BasicFormWithGenerators, ConfirmationModal} from "malicacid";
 import {css} from "malicacid";
 
@@ -99,5 +101,5 @@ form.on("form:submitted", function (e) {
     submitFunc();
 });
 
-
+$("body").tabs();
 

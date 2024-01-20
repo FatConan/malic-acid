@@ -23,7 +23,7 @@ npx webpack
 ```
 
 ```
-npx esbuild --bundle src/index.js --outdir=dist --external:jquery --external:underscore --external:jquery-ui --minify --sourcemap
+npx esbuild --bundle src/index.js --format=esm --outdir=dist --external:jquery --external:underscore --external:jquery-ui --minify --sourcemap
 ```
 
 To create the AMD library in the dist folder.

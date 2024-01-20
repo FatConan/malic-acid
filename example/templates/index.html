@@ -1,72 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta charset="UTF-8" />
-        <title>{{ DATA.get("title") }}</title>
-        {{ ES6CSS.headers() | safe }}
-    </head>
-    <body>
-    <section class = "modal">
-        <form id="basic-form"></form>
-    </section>
-        <section class="modal device ui-dialog-content ui-widget-content" id="device-editor"
-                 style="display: block; width: auto; min-height: 20.053px; max-height: none; height: auto;">
-            <form id="form_device" class="form device"
-                  data-statuses="{&quot;1&quot;:&quot;OK&quot;,&quot;2&quot;:&quot;Temporarily Offline&quot;,&quot;3&quot;:&quot;Permanently Offline&quot;}"
-                  autocomplete="off">
-                <div class="global-errors"></div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8"/>
+    <title>{{ DATA.get("title") }}</title>
+    {{ ES6CSS.headers() | safe }}
+</head>
+<body>
+<ul>
+    <li><a href="#device-editing">Form Example</a></li>
+    <li><a href="#readme">README</a></li>
+</ul>
+<section class="modal">
+    <form id="basic-form"></form>
+</section>
+<div class="tab" id="device-editing">
+    <section class="modal device ui-dialog-content ui-widget-content" id="device-editor"
+             style="display: block; width: auto; min-height: 20.053px; max-height: none; height: auto;">
+        <form id="form_device" class="form device"
+              data-statuses="{&quot;1&quot;:&quot;OK&quot;,&quot;2&quot;:&quot;Temporarily Offline&quot;,&quot;3&quot;:&quot;Permanently Offline&quot;}"
+              autocomplete="off">
+            <div class="global-errors"></div>
 
-                <div class="multi-pane">
-                    <div class="primary">
-                        <input name="id" id="device_input_id" type="hidden" value="">
+            <div class="multi-pane">
+                <div class="primary">
+                    <input name="id" id="device_input_id" type="hidden" value="">
 
-                        <div class="input-row required" data-errorname="device_name">
-                            <div class="error"></div>
-                            <label for="device_input_device_name">Device Name: </label>
-                            <input name="device_name" id="device_input_device_name" placeholder=" A unique name for the device"
-                                   type="text">
-                        </div>
+                    <div class="input-row required" data-errorname="device_name">
+                        <div class="error"></div>
+                        <label for="device_input_device_name">Device Name: </label>
+                        <input name="device_name" id="device_input_device_name"
+                               placeholder=" A unique name for the device"
+                               type="text">
+                    </div>
 
-                        <div class="input-row required" data-errorname="device_lock_state">
-                            <div class="error"></div>
-                            <label for="device_input_device_lock_state">Lock Device?: </label>
-                            <div class="radios" id="device_input_device_lock_state">
-                                <label class="no-annotations">Yes <input name="device_lock_state" type="radio"
-                                                                         value="yes"></label>
+                    <div class="input-row required" data-errorname="device_lock_state">
+                        <div class="error"></div>
+                        <label for="device_input_device_lock_state">Lock Device?: </label>
+                        <div class="radios" id="device_input_device_lock_state">
+                            <label class="no-annotations">Yes <input name="device_lock_state" type="radio"
+                                                                     value="yes"></label>
 
-                                <label class="no-annotations">No <input name="device_lock_state" type="radio"
-                                                                        value="no"></label>
-                            </div>
-                        </div>
-
-                        <div class="input-row required" data-errorname="status_id">
-                            <div class="error"></div>
-                            <label for="device_input_status_id">Device Status: </label>
-                            <select name="status_id" id="device_input_status_id">
-                                <option value="1">OK</option>
-                                <option value="2">Temporarily Offline</option>
-                                <option value="3">Permanently Offline</option>
-                            </select>
-                        </div>
-
-                        <div class="input-row" data-errorname="status_message">
-                            <div class="error"></div>
-                            <label for="device_input_status_message">Device Status Message: </label>
-                            <textarea name="status_message" id="device_input_status_message"
-                                      placeholder="If the device isn't OK describe why"></textarea>
-                        </div>
-
-                        <div class="input-row" data-errorname="disabled_input">
-                            <div class="error"></div>
-                            <label for="device_input_disabled_input">Device Status Message: </label>
-                            <input type="text" disabled="disabled" name="disabled_input" id="device_input_disabled_input"
-                                      placeholder="This input is disabled" />
+                            <label class="no-annotations">No <input name="device_lock_state" type="radio"
+                                                                    value="no"></label>
                         </div>
                     </div>
-                    <div class="secondary">
-                        <div id="generator_metadata" class="generator metadata" data-template="
+
+                    <div class="input-row required" data-errorname="status_id">
+                        <div class="error"></div>
+                        <label for="device_input_status_id">Device Status: </label>
+                        <select name="status_id" id="device_input_status_id">
+                            <option value="1">OK</option>
+                            <option value="2">Temporarily Offline</option>
+                            <option value="3">Permanently Offline</option>
+                        </select>
+                    </div>
+
+                    <div class="input-row" data-errorname="status_message">
+                        <div class="error"></div>
+                        <label for="device_input_status_message">Device Status Message: </label>
+                        <textarea name="status_message" id="device_input_status_message"
+                                  placeholder="If the device isn't OK describe why"></textarea>
+                    </div>
+
+                    <div class="input-row" data-errorname="disabled_input">
+                        <div class="error"></div>
+                        <label for="device_input_disabled_input">Device Status Message: </label>
+                        <input type="text" disabled="disabled" name="disabled_input" id="device_input_disabled_input"
+                               placeholder="This input is disabled"/>
+                    </div>
+                </div>
+                <div class="secondary">
+                    <div id="generator_metadata" class="generator metadata" data-template="
                                     <div class=&quot;generator-input-row&quot;>
                                         <div class=&quot;input-row &quot; data-errorname=&quot;metadata_key_&amp;lt;%- id %&amp;gt;&quot;>
                                             <div class=&quot;error&quot;></div>
@@ -81,33 +87,34 @@
                                         <span class=&quot;input-row-actions&quot;><button type=&quot;button&quot; class=&quot;delete-row&quot;>Delete</button></span>
                                     </div>
                                 ">
-                            <div class="generator-control-row">
-                                <div class="generator-title">Device Metadata</div>
-                                <div class="actions">
-                                    <button class="add-row" type="button">Add Metadata</button>
-                                </div>
+                        <div class="generator-control-row">
+                            <div class="generator-title">Device Metadata</div>
+                            <div class="actions">
+                                <button class="add-row" type="button">Add Metadata</button>
                             </div>
-                            <div class="generator_rows">
+                        </div>
+                        <div class="generator_rows">
 
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="input-row required">
+                <p class="indicates-required">Indicates a required field.</p>
+            </div>
 
-                <div class="input-row required">
-                    <p class="indicates-required">Indicates a required field.</p>
-                </div>
-
-                <div class="input-row">
-                    <input type="submit" value="Native Form Submission" />
-                    <button id="submit-this" type="button" class="button">Test Submission</button>
-                    <button id="populate-form" type="button" class="button">Test Population</button>
-                </div>
-                <p class="powered">Powered by <a href="https://github.com/FatConan/malic-acid">Malic Acid</a>. More about this <a href="#" class="about">demonstration</a>.</p>
-            </form>
-        </section>
-        <section>
+            <div class="input-row">
+                <input type="submit" value="Native Form Submission"/>
+                <button id="submit-this" type="button" class="button">Test Submission</button>
+                <button id="populate-form" type="button" class="button">Test Population</button>
+            </div>
+            <p class="powered">Powered by <a href="https://github.com/FatConan/malic-acid">Malic Acid</a>. More about
+                this
+                <a href="#" class="about">demonstration</a>.</p>
+        </form>
+    </section>
+    <section>
             <textarea id="load-entry">{
     "id": 5,
     "device_lock_state": true,
@@ -122,8 +129,14 @@
         {"id": 5, "metadata_key": "KEY 5", "metadata_value": "VALUE 5"}
     ]
 }</textarea>
-        </section>
-    </body>
+    </section>
+</div>
+<section id="readme" class="cms">
+    {{ content | safe }}
+</section>
+
+
+</body>
 </html>
 
 

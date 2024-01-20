@@ -1,6 +1,7 @@
 import _ from "underscore";
 import "jquery";
 
+
 const template = _.template("<style><%- css %></style>");
 export const Styler = function(css_url){
     if(window && document){

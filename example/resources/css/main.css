@@ -1,4 +1,4 @@
-@import url("reset.css");
+@import url("./reset.css");
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 @import url("/resources/themes/theme.css");
 
@@ -49,4 +49,42 @@ p.powered{
     text-align: left;
     padding: 5px 10px;
     font-weight: bold;
+}
+
+.cms *{
+    line-height: 1.5;
+}
+.cms h1{
+    font-size: 125%;
+}
+.cms h2{
+    font-size: 115%;
+}
+.cms h3{
+    font-size: 110%;
+}
+.cms h4{
+    font-size: 105%;
+}
+.cms h5{
+    font-weight: bold;
+}
+.cms p{
+    padding: .5em 1em;
+}
+
+.cms pre code{
+    display: block;
+    background: #ddd;
+    font-family: monospace;
+    max-width: 100%;
+    overflow: auto;
+    padding: .5em 1em;
+    margin: .5em;
+}
+.cms p code{
+    font-family: monospace;
+    display: inline-block;
+    font-size: 90%;
+
 }
