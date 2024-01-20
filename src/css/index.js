@@ -2,7 +2,7 @@ import _ from "underscore";
 import "jquery";
 
 const template = _.template("<style><%- css %></style>");
-const Styler = function(css_url){
+export const Styler = function(css_url){
     if(window && document){
         fetch(css_url).then(response => {
             response.text().then(css_text => {
@@ -14,7 +14,7 @@ const Styler = function(css_url){
     }
 }
 
-const relative_path = function(css_url){
+export const relative_path = function(css_url){
     let path = new URL(import.meta.url);
     return path.pathname.replace("index.js", css_url);
 }
