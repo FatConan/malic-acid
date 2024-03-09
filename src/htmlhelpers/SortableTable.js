@@ -20,23 +20,23 @@ export default class SortableTableView extends ListeningClass{
     }
 
     addListeners(){
-        this.targetTables.each(function(i, table){
+        this.targetTables.each((i, table) => {
             this.targetTableTimeouts[i] = null;
             let filterTarget = $("#" + $(table).data("filterinput"));
-            filterTarget.on("keydown", function(){
+            filterTarget.on("keydown", () => {
                 this.listenForFilter(filterTarget, table, i);
-            }.bind(this));
+            });
             this.sorter(table);
-        }.bind(this));
+        });
     }
 
     sorter(table){
         let $table = $(table);
-        let clicker = function(table, $table){
-            return function(e){
+        const clicker = (table, $table) => {
+            return (e) => {
                 let el = e.target;
                 let thEl = this.elementHelper.findParentTag(el, "TH");
-                if(thEl){
+                if(thEl && thEl.hasClass("sortable")){
                     let $el = $(thEl);
                     if(!$el.hasClass("no-sorting")){
                         let direction = "down";
@@ -64,17 +64,17 @@ export default class SortableTableView extends ListeningClass{
                         this.sortTable($table, direction, column);
                     }
                 }
-            }.bind(this);
-        }.bind(this);
+            };
+        };
 
         $table.find("thead th").on("click", clicker(table, $table));
-        $table.on("change", function(e){
+        $table.on("change", (e) => {
             if(e.target.matches(this.paginationSelectorMatch)){
                 let url = new URL(window.location.href);
                 url.searchParams.set("page", $(e.target).val());
                 window.location.href = url.href;
             }
-        }.bind(this));
+        });
     }
 
     sortTable(table, direction, column){
@@ -82,10 +82,10 @@ export default class SortableTableView extends ListeningClass{
         let sortingValues = [];
         let rows = table.find("tr");
 
-        rows = rows.filter(function(i, row){
+        rows = rows.filter((i, row) => {
             let tbody = this.elementHelper.findParentTag(row, "TBODY");
             return this.elementHelper.findParentTag(row, "TABLE") === table[0] && tbody !== null;
-        }.bind(this));
+        });
 
         //Loop over the rows to create a sortable list
         for(let i = 0; i < rows.length; i++){
