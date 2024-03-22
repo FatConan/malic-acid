@@ -162,17 +162,10 @@ export default class HighLevelEventHandler{
          to try again (but it's really more of a guide to the dev that they've missed something).
          */
 
-        //Determine which event type we should be listening for and make some style adjustments in the case we're operating
-        //on a touchscreen
-        this.clickEvent = "click";
-        if(this.touchscreen && "ontouchstart" in document.documentElement){
-            this.clickEvent = "touchstart";
-            //Disable the cursor on touchscreens
-            $("html").css("cursor", "none");
-        }
 
         // Register the event on out intended top level target (this may be at the top, or on some specific container section within the DOM)
-        this.target.on(this.clickEvent, function(e){
+        this.target.addEventListener('*', (e) => {
+            console.log(e);
             if(this.debug){
                 console.log("HIGH LEVEL EVENT HANDLER firing on ", e);
             }
@@ -234,6 +227,6 @@ export default class HighLevelEventHandler{
                 /* Otherwise do nothing (or log we're doing nothing) */
                 console.log("HIGH LEVEL EVENT HANDLER taking no further action ", e);
             }
-        }.bind(this));
+        });
     }
 }
