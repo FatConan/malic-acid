@@ -1,5 +1,5 @@
 import ElementHelper from "./dom/ElementHelper.js";
-import HighLevelEventHandler from "./events/HighLevelEventHandler.js";
+import HighLevelClickEventHandler from "./events/HighLevelClickEventHandler.js";
 import ConfirmationModal from "./modal/ConfirmationModal.js";
 import RequestParameters from "./request/RequestParameters.js";
 import BaseClass from "./classes/BaseClass.js";
@@ -9,7 +9,7 @@ const dom = {
 };
 
 const events = {
-    HighLevelEventHandler
+    HighLevelEventHandler: HighLevelClickEventHandler
 };
 
 const modal = {

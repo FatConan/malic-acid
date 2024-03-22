@@ -3,7 +3,7 @@ import _ from "underscore";
 import ElementHelper from "../dom/ElementHelper.js";
 
 export default class HighLevelEventHandler{
-    /** The HighLevelEventHandler is a touch/click event tracker that registers once at document level as a single listener
+    /** The HighLevelClickEventHandler is a touch/click event tracker that registers once at document level as a single listener
      * for intercepting click events. It also resolved events against their intended target so that an event firing on a child
      * element but listened for at an ancestor can provide the listener with that intended ancestor to work with automatically.
      * @param options An object of configuration options:
@@ -16,9 +16,13 @@ export default class HighLevelEventHandler{
     constructor(options){
         this.elementHelper = ElementHelper;
         this.listenerGroupName = options.groupName;
-        this.touchscreen = options.touchscreen === true;
+        if(options.defaultEvent){
+            this.defaultEvent = options.defaultEvent;
+        }else{
+            this.defaultEvent = options.touchscreen ? "touchstart" : "click";
+        }
         this.debug = false;
-        this.nullAction = function(e){
+        this.nullAction = (e) => {
         };
 
         //We can specify in the options a loadWarning to function to fire on the event that we hit a link that looks
@@ -53,8 +57,8 @@ export default class HighLevelEventHandler{
         if(window.eventHandler){
             return window.eventHandler;
         }
-        throw "HighLevelEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
-        " handler by calling HighLevelEventHandler.hookup({options})";
+        throw "HighLevelClickEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
+        " handler by calling HighLevelClickEventHandler.hookup({options})";
     }
 
     addListenerGroup(groupName){
@@ -67,13 +71,33 @@ export default class HighLevelEventHandler{
         delete this.listenerPluginGroups[groupName];
     }
 
+    addListener(event, targetMatch, action){
+        if(this.listeners.hasOwnProperty(event)){
+            if(this.listeners[event].hasOwnProperty(targetMatch)){
+                this.listeners[event][targetMatch].push(action);
+            }else{
+                this.listeners[event][targetMatch] = [action];
+            }
+        }else{
+            this.listeners[event] = {
+                targetMatch: [action]
+            };
+        }
+    }
+
     //Add a listener for a specific element and a corresponding action to take
     addListener(targetMatch, action){
-        if(this.listeners[targetMatch]){
+        this.addListener(this.defaultEvent, targetMatch, action);
+        /*if(this.listeners[targetMatch]){
             this.listeners[targetMatch].push(action);
         }else{
             this.listeners[targetMatch] = [action];
-        }
+        }*/
+    }
+
+    addNullListener(event, targetMatch){
+        /* Add a null listener, used to allow elements within elements to invoke default behaviour when their parent has a listener present */
+        this.addListener(event, targetMatch, this.nullAction);
     }
 
     //Add a null listener. This will suppress any load warnings while not altering behavior.
@@ -90,9 +114,11 @@ export default class HighLevelEventHandler{
     //List all the currently registered events for debug purposes
     list(){
         const listListeners = function(listenerObj){
-            for(let a in listenerObj){
-                if(listenerObj.hasOwnProperty(a)){
-                    console.log(a,listenerObj[a]);
+            for(let event in listenerObj){
+                if(listenerObj.hasOwnProperty(event)){
+                    for(let targetMatch in listenerObj[event]){
+                        console.log(event, targetMatch, listenerObj[event][targetMatch]);
+                    }
                 }
             }
         }
@@ -107,17 +133,21 @@ export default class HighLevelEventHandler{
         }
     }
 
-    report(listenerTarget){
-        if(this.listeners.hasOwnProperty(listenerTarget)){
-            console.log(listenerTarget, this.listeners[listenerTarget])
+    report(event, listenerTarget){
+        if(this.listeners.hasOwnProperty(event) && this.listeners[event].hasOwnProperty(listenerTarget)){
+            console.log(listenerTarget, this.listeners[event][listenerTarget])
         }else{
-            console.log(`No event listeners found for ${listenerTarget}`);
+            console.log(`No event listeners found for ${event}:${listenerTarget}`);
         }
     }
 
+
     clearListeners(listenerTarget){
-        if(this.listeners.hasOwnProperty(listenerTarget)){
-            delete this.listeners[listenerTarget];
+        this.clearListeners(this.defaultEvent, listenerTarget);
+    }
+    clearListeners(event, listenerTarget){
+        if(this.listeners.hasOwnProperty(event) && this.listeners[event].hasOwnProperty(listenerTarget)){
+            delete this.listeners[event][listenerTarget];
         }
     }
 

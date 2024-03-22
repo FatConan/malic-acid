@@ -1,7 +1,7 @@
 import "jquery";
 import _ from "underscore";
 import ElementHelper from "../dom/ElementHelper.js";
-import HighLevelEventHandler from "../events/HighLevelEventHandler.js";
+import HighLevelClickEventHandler from "../events/HighLevelClickEventHandler.js";
 
 export default class FormHandler{
     constructor(options){
@@ -17,7 +17,7 @@ export default class FormHandler{
         this.isDirty = false;
 
         this.elementHelper = ElementHelper;
-        this.eventHandler = HighLevelEventHandler.grabHandler();
+        this.eventHandler = HighLevelClickEventHandler.grabHandler();
 
         this.formInitialPrepare(options);
     }

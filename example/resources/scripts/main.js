@@ -1,10 +1,12 @@
 import "jquery";
 import "jquery-ui";
+import malicacid from "malicacid";
 import {HighLevelEventHandler, BasicForm, BasicFormWithGenerators, ConfirmationModal} from "malicacid";
 import {css} from "malicacid";
 
+
 css.formsCSS(); //Add form CSS
-HighLevelEventHandler.hookup({target: "html"});
+HighLevelEventHandler.hookup({target: "html"}); //Add a global event handler
 
 class BaseFormOverride extends BasicForm {
     constructor(options) {
@@ -22,7 +24,7 @@ class DeviceStatusForm extends BasicFormWithGenerators {
 
     }
 
-    formInteractivityInit(oprions) {
+    formInteractivityInit(options) {
         console.log("Overridden form interactivity init");
     }
 
@@ -47,21 +49,29 @@ class DeviceStatusForm extends BasicFormWithGenerators {
     }
 }
 
-const basicForm = new BaseFormOverride({form: $("#basic-form")});
-const form = new DeviceStatusForm({form: $("#form_device")});
-const submitFunc = function (e, args) {
-    alert("Submitted form JSON will be written to the console.");
-    console.log(this.getFormData());
-    //Allow resubmissions by unlocking the forms
-    this.unlock();
-}.bind(form);
+class InteractiveForm extends BasicForm{
+    constructor(options) {
+        super(options);
+    }
+}
 
-const populateForm = function (e) {
+const basicForm = new BaseFormOverride({form: $("#basic-form")});
+const interactiveForm = new InteractiveForm({form: "#interactive_form"});
+const form = new DeviceStatusForm({form: $("#form_device")});
+
+const submitFunc = (e, args) => {
+    alert("Submitted form JSON will be written to the console.");
+    console.log(form.getFormData());
+    //Allow resubmissions by unlocking the forms
+    form.unlock();
+};
+
+const populateForm = (e) => {
     let content = $("#load-entry").text();
     let data = JSON.parse(content);
-    this.reset();
-    this.setFormData(data);
-}.bind(form);
+    form.reset();
+    form.setFormData(data);
+};
 
 const loadConfirm = new ConfirmationModal({
         title: "Are you sure?",
@@ -88,18 +98,36 @@ const aboutDialog = new ConfirmationModal({
 
 //Simple demonstration of the high level event handler
 window.eventHandler.addListener("#submit-this", submitFunc);
-window.eventHandler.addListener("#populate-form", function (e, args) {
+window.eventHandler.addListener("#populate-form",  (e, args) => {
     loadConfirm.open();
 });
-window.eventHandler.addListener("a.about", function (e, args) {
+window.eventHandler.addListener("a.about", (e, args) => {
     e.preventDefault();
     aboutDialog.open();
 });
 
-form.on("form:submitted", function (e) {
+form.on("form:submitted", (e) => {
     alert("Form submission captured");
     submitFunc();
 });
 
+
+const evaluate = (string) => {
+          return eval(string);
+    }
+const submitInteractive = (e, args) => {
+    let data = interactiveForm.getFormData()
+    console.log(evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text));
+    //Allow resubmissions by unlocking the forms
+    interactiveForm.unlock();
+};
+
+window.eventHandler.addListener(".interactive-test", submitInteractive);
+
+interactiveForm.on("form:submitted", (e) => {
+    submitInteractive();
+});
+
+//Enable the page tabs
 $("body").tabs();
 
