@@ -70,8 +70,13 @@ export default class ElementHelper{
         while(element && element.tagName !== null){
             if(element.matches){
                 for(let m in matchObj){
-                    if(matchObj.hasOwnProperty(m) && element.matches(m)){
-                        return [element, m, matchObj[m]];
+                    if(matchObj.hasOwnProperty(m)){
+                        if(element.matches(m)){
+                            return [element, m, matchObj[m]];
+                        }
+                        if(element === m){
+                            return [element, m, matchObj[m]];
+                        }
                     }
                 }
             }

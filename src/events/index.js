@@ -1,7 +1,9 @@
-import HighLevelClickEventHandler from "./HighLevelClickEventHandler.js";
+import BaseHighLevelEventHandler from "./BaseHighLevelEventHandler.js";
+import HighLevelEventHandler from "./HighLevelEventHandler.js";
 import HighLevelKeyPressEventHandler from "./HighLevelKeyPressEventHandler.js";
 
 export {
-    HighLevelClickEventHandler,
+    BaseHighLevelEventHandler,
+    HighLevelEventHandler,
     HighLevelKeyPressEventHandler
 };

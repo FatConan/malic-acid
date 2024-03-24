@@ -16,11 +16,11 @@ export default class FormHandlerWithGenerators extends FormHandler{
         this.generatorAdd();
 
         this.setupFormDataAndErrorHandling(options);
-        this.on("form:reset", function(e){
+        this.on("form:reset", (e) => {
             $(this.generators).each(function(i, g){
                 g.generatorRowStore.empty();
             });
-        }.bind(this));
+        });
 
         this.formInteractivityInit(options);
     }
@@ -35,7 +35,7 @@ export default class FormHandlerWithGenerators extends FormHandler{
 
     generatorAdd(){
         let generatorCollections = this.formElement.find(".generator");
-        $(generatorCollections).each(function(i, generator){
+        $(generatorCollections).each((i, generator) => {
             let $generator = $(generator);
             let template = this.unescapeTemplate($generator.data("template"));
             let generatorID = ElementHelper.guid();
@@ -50,14 +50,11 @@ export default class FormHandlerWithGenerators extends FormHandler{
             };
 
             this.generators.push(augmentedGenerator);
-            this.eventHandler.addListener(`.generator[data-generatedid="${generatorID}"] button`,  function(){
-                const generator = augmentedGenerator;
-                return function(e, args){
+            this.eventHandler.addListener(`.generator[data-generatedid="${generatorID}"] button`,  (e, args) => {
                     e.preventDefault();
-                    this.generatorHandler(generator, args.matchedEl);
-                }.bind(this)
-            }.bind(this)());
-        }.bind(this));
+                    this.generatorHandler(augmentedGenerator, args.matchedEl);
+            });
+        });
     }
 
     generatorHandler(augmentedGenerator, target){

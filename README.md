@@ -113,7 +113,7 @@ capture click events bubbling up from any child elements by comparing them to a 
 The first step in using the event handler is to "hookup" the listener.
 
 ```
-malicacid.HighLevelClickEventHandler.hookup({target: "html"});
+malicacid.HighLevelEventHandler.hookup({target: "html"});
 ```
 
 ## Base Classes

@@ -1,7 +1,7 @@
 import "jquery";
 import _ from "underscore";
 import ElementHelper from "../dom/ElementHelper.js";
-import HighLevelClickEventHandler from "../events/HighLevelClickEventHandler.js";
+import HighLevelEventHandler from "../events/HighLevelEventHandler.js";
 
 export default class FormHandler{
     constructor(options){
@@ -17,7 +17,9 @@ export default class FormHandler{
         this.isDirty = false;
 
         this.elementHelper = ElementHelper;
-        this.eventHandler = HighLevelClickEventHandler.grabHandler();
+        const globalEventHandler = HighLevelEventHandler.grabGlobalHandler();
+        this.formEventGroupName = ElementHelper.guid();
+        this.eventHandler = globalEventHandler.addListenerGroup(this.formEventGroupName);
 
         this.formInitialPrepare(options);
     }
@@ -34,16 +36,22 @@ export default class FormHandler{
     }
 
     trigger(eventName, data){
-        let event = new CustomEvent(eventName, {detail: data});
-        this.formElement[0].dispatchEvent(event);
+        this.eventHandler.triggerWithTarget(this.formElement[0], eventName, data);
     }
 
     on(event, handler){
-        this.formElement[0].addEventListener(event, handler);
+        this.eventHandler.addListenerOnEvent(event, this.formElement[0], handler);
     }
 
     off(event){
-        this.formElement[o].removeEventListener(event);
+        this.eventHandler.clearListenersOnEvent(event, this.formElement[0]);
+    }
+
+    clearAllListeners(){
+        const globalEventHandler = HighLevelEventHandler.grabHandler();
+        globalEventHandler.removeListenerGroup(this.formEventGroupName);
+        this.formEventGroupName = ElementHelper.guid();
+        this.eventHandler = globalEventHandler.addListenerGroup(this.formEventGroupName);
     }
 
     buildInputReference(formElement){

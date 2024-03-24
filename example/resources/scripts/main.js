@@ -7,6 +7,7 @@ import {css} from "malicacid";
 
 css.formsCSS(); //Add form CSS
 HighLevelEventHandler.hookup({target: "html"}); //Add a global event handler
+const eventHandler = HighLevelEventHandler.grabHandler();
 
 class BaseFormOverride extends BasicForm {
     constructor(options) {
@@ -97,11 +98,11 @@ const aboutDialog = new ConfirmationModal({
 );
 
 //Simple demonstration of the high level event handler
-window.eventHandler.addListener("#submit-this", submitFunc);
-window.eventHandler.addListener("#populate-form",  (e, args) => {
+eventHandler.addListener("#submit-this", submitFunc);
+eventHandler.addListener("#populate-form",  (e, args) => {
     loadConfirm.open();
 });
-window.eventHandler.addListener("a.about", (e, args) => {
+eventHandler.addListener("a.about", (e, args) => {
     e.preventDefault();
     aboutDialog.open();
 });
@@ -116,13 +117,20 @@ const evaluate = (string) => {
           return eval(string);
     }
 const submitInteractive = (e, args) => {
-    let data = interactiveForm.getFormData()
-    console.log(evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text));
+    let data = interactiveForm.getFormData();
+
+    try{
+        console.log(evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text));
+    }catch(error){
+        console.log(error);
+    }
     //Allow resubmissions by unlocking the forms
     interactiveForm.unlock();
 };
 
-window.eventHandler.addListener(".interactive-test", submitInteractive);
+eventHandler.addListener(".interactive-test",  (e, args) => {
+    submitInteractive();
+});
 
 interactiveForm.on("form:submitted", (e) => {
     submitInteractive();
