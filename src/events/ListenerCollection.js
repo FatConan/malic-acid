@@ -66,7 +66,6 @@ export default class ListenerCollection{
     triggerWithTarget(target, eventName, data){
         let event = new CustomEvent(eventName, {bubbles: true, detail: data});
         target.dispatchEvent(event);
-        console.log(`TRIGGERED event ${eventName}`);
     }
 
     list(){
