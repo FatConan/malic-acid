@@ -13,7 +13,7 @@ export default class BaseClass{
     }
 
     //Handle option management, override this in extending classes if required to set defaults etc,
-    //by by default just do a straight assimilation
+    //by default just do a straight assimilation
     configure(options){
         this.assimilate(options);
     }
@@ -26,7 +26,7 @@ export default class BaseClass{
     //Add the eventHandler from window to the object so we can use it addListeners
     hookEventListener(){
         if(window.eventHandler) {
-            this.eventHandler = window.eventHandler;
+            this.eventHandler = window.eventHandler.defaultListenerCollection;
         }else{
             this.eventHandler = null;
         }

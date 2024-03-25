@@ -2,13 +2,18 @@ import "jquery";
 
 export default class ElementHelper{
     static guid(){
-        function s4() {
+        const s4 = () => {
             return Math.floor((1 + Math.random()) * 0x10000)
                 .toString(16)
                 .substring(1);
         }
+
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
+    }
+
+    static namespacedGuid(ns){
+        return `${ns}-${ElementHelper.guid()}`;
     }
 
     static getData(element, dataLabel){

@@ -18,7 +18,7 @@ export default class FormHandler{
 
         this.elementHelper = ElementHelper;
         const globalEventHandler = HighLevelEventHandler.grabGlobalHandler();
-        this.formEventGroupName = ElementHelper.guid();
+        this.formEventGroupName = ElementHelper.namespacedGuid("form");
         this.eventHandler = globalEventHandler.addListenerGroup(this.formEventGroupName);
 
         this.formInitialPrepare(options);
