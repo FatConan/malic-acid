@@ -17,7 +17,8 @@ export default class FormHandlerWithGenerators extends FormHandler{
 
         this.setupFormDataAndErrorHandling(options);
         this.on("form:reset", (e) => {
-            $(this.generators).each(function(i, g){
+            console.log("RESET GENERATORS");
+            $(this.generators).each((i, g) => {
                 g.generatorRowStore.empty();
             });
         });

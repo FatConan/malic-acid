@@ -21,6 +21,8 @@
              style="display: block; width: auto; min-height: 20.053px; max-height: none; height: auto;">
         <form id="form_device" class="form device"
               data-statuses="{&quot;1&quot;:&quot;OK&quot;,&quot;2&quot;:&quot;Temporarily Offline&quot;,&quot;3&quot;:&quot;Permanently Offline&quot;}"
+              action="."
+              method="GET"
               autocomplete="off">
             <div class="global-errors"></div>
 
@@ -144,6 +146,7 @@
             <textarea id="interactive_form_interactive-text" name="interactive_text" placeholder="Try some interactive shenanigans"></textarea>
         </div>
         <button class="interactive-test">Try me!</button>
+        <textarea id="interactive_output"></textarea>
     </form>
 </section>
 </body>

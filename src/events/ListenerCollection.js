@@ -1,4 +1,6 @@
-const NULL_ACTION = (e) => {};
+import ElementHelper from "../dom/ElementHelper.js";
+
+export const NULL_ACTION = (e) => {};
 
 export default class ListenerCollection{
     constructor(globalEventHandler){
@@ -24,6 +26,15 @@ export default class ListenerCollection{
     }
 
     addListenerOnEvent(event, targetMatch, action){
+        if(targetMatch instanceof HTMLElement){
+            let meId = targetMatch.getAttribute("data-maliceventid");
+            if(meId == null){
+                meId = `meid-${ElementHelper.guid()}`;
+                targetMatch.setAttribute("data-maliceventid", meId);
+            }
+            targetMatch = `${targetMatch.tagName}[data-maliceventid=${meId}]`;
+        }
+
         if(this.listeners.hasOwnProperty(event)){
             if(this.listeners[event].hasOwnProperty(targetMatch)){
                 this.listeners[event][targetMatch].push(action);
@@ -53,8 +64,9 @@ export default class ListenerCollection{
     }
 
     triggerWithTarget(target, eventName, data){
-        let event = new CustomEvent(eventName, {detail: data});
+        let event = new CustomEvent(eventName, {bubbles: true, detail: data});
         target.dispatchEvent(event);
+        console.log(`TRIGGERED event ${eventName}`);
     }
 
     list(){

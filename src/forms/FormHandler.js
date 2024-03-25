@@ -36,6 +36,9 @@ export default class FormHandler{
     }
 
     trigger(eventName, data){
+        if(data == null){
+            data = null;
+        }
         this.eventHandler.triggerWithTarget(this.formElement[0], eventName, data);
     }
 
@@ -48,7 +51,7 @@ export default class FormHandler{
     }
 
     clearAllListeners(){
-        const globalEventHandler = HighLevelEventHandler.grabHandler();
+        const globalEventHandler = HighLevelEventHandler.grabGlobalHandler();
         globalEventHandler.removeListenerGroup(this.formEventGroupName);
         this.formEventGroupName = ElementHelper.guid();
         this.eventHandler = globalEventHandler.addListenerGroup(this.formEventGroupName);
@@ -77,12 +80,11 @@ export default class FormHandler{
         let errorReference = {};
         errorReference.globalErrors = formElement.find(".global-errors");
         let inputRows = formElement.find(".input-row");
-        inputRows.each(function (i, e) {
+        inputRows.each((i, e) => {
             let $el = $(e);
             let name = $el.data("errorname");
             errorReference[name] = $el;
-        }.bind(this));
-
+        });
         return {inputRows: inputRows, errorReference: errorReference};
     }
 
@@ -104,27 +106,27 @@ export default class FormHandler{
         this.reconfigureInputs();
 
         if(this.formSubmitRepression) {
-            this.formElement.off("submit");
-            this.formElement.on("submit", function(e){
+            this.off("submit");
+            this.on("submit", (e) => {
                 e.preventDefault();
                 if(!this.isLocked()) {
                     this.lock();
                     this.trigger("form:submitted");
                 }
-            }.bind(this));
+            });
         }
 
         if(!this.formElement.hasClass("formErrors")) {
             this.reset();
         }
 
-        this.formElement.on("click", function(e){
+        this.on("click", (e) => {
             let target = e.target;
             if(this.elementHelper.match(target, "input") || this.elementHelper.match(target, "textarea") ||
                 this.elementHelper.match(target, "select") || this.elementHelper.match(target, "option")){
                 this.isDirty = true;
             }
-        }.bind(this));
+        });
     }
 
     dirty(){
@@ -168,7 +170,7 @@ export default class FormHandler{
         this.formElement[0].reset();
         //Arg reset doesn't clear hidden fields, so make sure our implementation does.
         if(this.autoHiddenReset){
-            this.formElement.find("input[type=hidden]").each(function(i, e){
+            this.formElement.find("input[type=hidden]").each((i, e) => {
                 $(e).val("");
             });
         }

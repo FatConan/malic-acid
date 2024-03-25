@@ -5,6 +5,12 @@
 html, input, select, textarea, div[contenteditable], button{
     font-family: 'Roboto', sans-serif;
     padding: 5px;
+    box-sizing: border-box;
+}
+
+input[type=text], select, textarea{
+    width: 100%;
+    display: block;
 }
 
 #device-editor .generator-control-row{
@@ -36,7 +42,7 @@ html, input, select, textarea, div[contenteditable], button{
     grid-column-start: 1;
     grid-column-end: 3;
 }
-#load-entry{
+#load-entry, #interactive_output{
     background: #eaffea;
     margin-top: 20px;
     box-sizing: border-box;

@@ -117,12 +117,25 @@ const evaluate = (string) => {
           return eval(string);
     }
 const submitInteractive = (e, args) => {
+    const showError = (error) =>{
+        const errorData = {errors: {
+                interactive_text: error
+            }};
+        interactiveForm.addErrors(errorData);
+    };
+
+    interactiveForm.emptyErrors();
     let data = interactiveForm.getFormData();
 
     try{
-        console.log(evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text));
+        let response = evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text);
+        if(response != null){
+            interactiveForm.formElement.find("#interactive_output").val(response);
+        }else{
+            showError("Could not evaluate anything");
+        }
     }catch(error){
-        console.log(error);
+        showError(error);
     }
     //Allow resubmissions by unlocking the forms
     interactiveForm.unlock();
