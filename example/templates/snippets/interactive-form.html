@@ -1,0 +1,10 @@
+<form id="{{ form_name }}" class="form interactive" autocomplete="off">
+    <div class="global-errors"></div>
+    <div class="input-row" data-errorname="interactive_text">
+        <div class="error"></div>
+        <label for=""{{ form_name }}_interactive-text">Interactive text: </label>
+        <textarea id=""{{ form_name }}_interactive-text" name="interactive_text" placeholder="Try some interactive shenanigans"></textarea>
+    </div>
+    <button class="interactive-test">Try me!</button>
+    <textarea id="{{ form_name }}-interactive_output" class="interactive-output"></textarea>
+</form>

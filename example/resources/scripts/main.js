@@ -9,27 +9,19 @@ css.formsCSS(); //Add form CSS
 HighLevelEventHandler.hookup({target: "html"}); //Add a global event handler
 const eventHandler = HighLevelEventHandler.grabHandler();
 
-class BaseFormOverride extends BasicForm {
-    constructor(options) {
+class BaseFormOverride extends BasicForm{
+    constructor(options){
         super(options);
-    }
-
-    formInteractivityInit(options) {
-        console.log("BasicForm Overridden form interactivity init");
     }
 }
 
-class DeviceStatusForm extends BasicFormWithGenerators {
-    constructor(options) {
+class DeviceStatusForm extends BasicFormWithGenerators{
+    constructor(options){
         super(options);
 
     }
 
-    formInteractivityInit(options) {
-        console.log("Overridden form interactivity init");
-    }
-
-    dataIn(data) {
+    dataIn(data){
         let transpose = data;
         let metaDataGenerator = this.generators[0];
 
@@ -39,7 +31,7 @@ class DeviceStatusForm extends BasicFormWithGenerators {
         return transpose;
     }
 
-    dataOut(rawData) {
+    dataOut(rawData){
         let transpose = rawData;
 
         this.yesOrNoToBoolean(rawData, transpose, "device_lock_state");
@@ -51,13 +43,61 @@ class DeviceStatusForm extends BasicFormWithGenerators {
 }
 
 class InteractiveForm extends BasicForm{
-    constructor(options) {
+    constructor(options){
         super(options);
+    }
+
+    evaluate(string){
+        return eval(string);
+    }
+
+    submitInteractive(){
+        const showError = (error) => {
+            const errorData = {
+                errors: {
+                    interactive_text: error
+                }
+            };
+            this.addErrors(errorData);
+        };
+
+        const output = this.formElement.find(".interactive-output");
+        this.emptyErrors();
+        let data = this.getFormData();
+
+        try{
+            let response = this.evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text);
+            if(response != null){
+                output.val(response);
+            }else{
+                output.val("NO DIRECT OUTPUT - please check the console.");
+            }
+        }catch(error){
+            showError(error);
+        }
+        //Allow resubmissions by unlocking the forms
+        this.unlock();
+    }
+
+    formInteractivityInit(){
+        this.eventHandler.addListener(".interactive-test", (e, args) => {
+            this.submitInteractive();
+        });
+
+        this.on("form:submitted", (e) => {
+            this.submitInteractive();
+        });
     }
 }
 
 const basicForm = new BaseFormOverride({form: $("#basic-form")});
 const interactiveForm = new InteractiveForm({form: "#interactive_form"});
+const interactiveModalTarget = $("#modal-interactive");
+const interactiveModal = {
+    target: interactiveModalTarget,
+    form: new InteractiveForm({form: interactiveModalTarget.find("form")}),
+    dialog: interactiveModalTarget.dialog({title: "Interactive Form", width: 500, autoOpen: false})
+};
 const form = new DeviceStatusForm({form: $("#form_device")});
 
 const submitFunc = (e, args) => {
@@ -91,7 +131,7 @@ const aboutDialog = new ConfirmationModal({
             " Would you like to learn more about Malic Acid?"
     },
     {
-        yes: function () {
+        yes: function(){
             window.location.href = "https://github.com/FatConan/malic-acid";
         }
     }
@@ -99,7 +139,7 @@ const aboutDialog = new ConfirmationModal({
 
 //Simple demonstration of the high level event handler
 eventHandler.addListener("#submit-this", submitFunc);
-eventHandler.addListener("#populate-form",  (e, args) => {
+eventHandler.addListener("#populate-form", (e, args) => {
     loadConfirm.open();
 });
 eventHandler.addListener("a.about", (e, args) => {
@@ -113,40 +153,12 @@ form.on("form:submitted", (e) => {
 });
 
 
-const evaluate = (string) => {
-          return eval(string);
-    }
-const submitInteractive = (e, args) => {
-    const showError = (error) =>{
-        const errorData = {errors: {
-                interactive_text: error
-            }};
-        interactiveForm.addErrors(errorData);
-    };
-
-    interactiveForm.emptyErrors();
-    let data = interactiveForm.getFormData();
-
-    try{
-        let response = evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text);
-        if(response != null){
-            interactiveForm.formElement.find("#interactive_output").val(response);
-        }else{
-            showError("Could not evaluate anything");
-        }
-    }catch(error){
-        showError(error);
-    }
-    //Allow resubmissions by unlocking the forms
-    interactiveForm.unlock();
-};
-
-eventHandler.addListener(".interactive-test",  (e, args) => {
-    submitInteractive();
-});
-
-interactiveForm.on("form:submitted", (e) => {
-    submitInteractive();
+eventHandler.addListener("code.language-javascript", (e, args) => {
+    interactiveModal.form.reset();
+    const data = {interactive_text: args.$matchedEl.text()};
+    interactiveModal.form.setFormData(data);
+    interactiveModal.dialog.dialog("open");
+    interactiveModal.form.submitInteractive();
 });
 
 //Enable the page tabs

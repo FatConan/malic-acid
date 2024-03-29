@@ -138,16 +138,13 @@
     {{ content | safe }}
 </section>
 <section id="interactive">
-    <form id="interactive_form" class="form interactive" autocomplete="off">
-        <div class="global-errors"></div>
-        <div class="input-row" data-errorname="interactive_text">
-            <div class="error"></div>
-            <label for="interactive_form_interactive-text">Interactive text: </label>
-            <textarea id="interactive_form_interactive-text" name="interactive_text" placeholder="Try some interactive shenanigans"></textarea>
-        </div>
-        <button class="interactive-test">Try me!</button>
-        <textarea id="interactive_output"></textarea>
-    </form>
+    {% set form_name="interactive_form" %}
+    {% include "snippets/interactive-form.html" %}
+</section>
+
+<section id="modal-interactive" class="modal">
+    {% set form_name="modal_interactive_form" %}
+    {% include "snippets/interactive-form.html" %}
 </section>
 </body>
 </html>

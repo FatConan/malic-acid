@@ -69,15 +69,25 @@ export default class ListenerCollection{
     }
 
     list(){
+        let repr = [];
         for(let event in this.listeners){
             if(this.listeners.hasOwnProperty(event)){
-                console.log(`Event: ${event}`);
+                repr.push(`Event: ${event}`);
                 for(let target in this.listeners[event]){
                     if(this.listeners[event].hasOwnProperty(target)){
-                        console.log(target, this.listeners[event][target]);
+                       repr.push(target, this.listeners[event][target]);
                     }
                 }
             }
         }
+        return repr;
+    }
+
+    logList(){
+        console.log(this.list());
+    }
+
+    textList(){
+        return this.list().join("\n");
     }
 }

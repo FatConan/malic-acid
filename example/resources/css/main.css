@@ -42,7 +42,7 @@ input[type=text], select, textarea{
     grid-column-start: 1;
     grid-column-end: 3;
 }
-#load-entry, #interactive_output{
+#load-entry, .interactive-output{
     background: #eaffea;
     margin-top: 20px;
     box-sizing: border-box;
@@ -59,6 +59,7 @@ p.powered{
 
 .cms *{
     line-height: 1.5;
+    max-width: 700px;
 }
 .cms h1{
     font-size: 125%;
@@ -75,8 +76,22 @@ p.powered{
 .cms h5{
     font-weight: bold;
 }
+.cms h1,
+.cms h2,
+.cms h3,
+.cms h4,
+.cms h5 {
+    margin: 2em 0 1em;
+}
 .cms p{
     padding: .5em 1em;
+}
+
+.cms pre {
+    margin: 1em .5em;
+    padding: 0;
+    display: block;
+    box-sizing: border-box;
 }
 
 .cms pre code{
@@ -86,11 +101,36 @@ p.powered{
     max-width: 100%;
     overflow: auto;
     padding: .5em 1em;
-    margin: .5em;
+    margin: 0;
+    box-sizing: border-box;
+}
+.cms pre code.language-javascript{
+    cursor: pointer;
 }
 .cms p code{
     font-family: monospace;
     display: inline-block;
     font-size: 90%;
+}
 
+.cms pre code.language-javascript:hover{
+    background: palegoldenrod;
+}
+
+blockquote::before{
+    content: "Output:";
+    display: block;
+    font-weight: bold;
+}
+blockquote {
+    display: block;
+    padding: .5em 1em;
+    margin: 1em .5em;
+    background: #eaffea;
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
+.modal {
+    display: none;
 }
