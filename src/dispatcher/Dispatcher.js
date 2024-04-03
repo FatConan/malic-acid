@@ -1,5 +1,5 @@
-import {ElementHelper} from "../dom/ElementHelper.js";
-import {HighLevelEventHandler} from "../events/HighLevelEventHandler.js";
+import ElementHelper from "../dom/ElementHelper.js";
+import HighLevelEventHandler from "../events/HighLevelEventHandler.js";
 
 export default class Dispatcher{
     static viewCheckerAndFormatter(availableViewReference, requestedViews, options){
@@ -30,6 +30,8 @@ export default class Dispatcher{
 
         this.viewPath = config.viewPath;
         this.instantiatedViews = {};
+        this.failedViews = {};
+        this.viewList = [];
     }
 
     trigger(eventName, data){
@@ -45,6 +47,7 @@ export default class Dispatcher{
             this.instantiatedViews[viewLabel] = new ViewClass.default(options);
             this.trigger("dispatcher:viewloaded", viewLabel);
         }).catch(err => {
+            this.failedViews[viewLabel] = options;
             this.trigger("dispatcher:viewfailed", viewLabel);
             throw err;
         });
@@ -55,6 +58,7 @@ export default class Dispatcher{
     }
 
     requireAndInstantiateViews(viewList){
+        this.viewList = viewList;
         let loaded = {};
         let loadedLabels = [];
         this.on("dispatcher:viewloaded", (e) => {
@@ -68,7 +72,7 @@ export default class Dispatcher{
             this.trigger("dispatcher:allviewsloaded", viewList);
         });
 
-        for(let view of viewList){
+        for(let view of this.viewList){
             loaded[view.label] = false;
             loadedLabels.push(view.label);
             this.requireAndInstantiateView(view.view, view.label, view.options);

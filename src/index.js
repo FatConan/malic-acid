@@ -5,6 +5,7 @@ import {BaseHighLevelEventHandler, HighLevelEventHandler, HighLevelKeyPressEvent
 import ConfirmationModal from "./modal/ConfirmationModal.js";
 import SortableTable from "./htmlhelpers/SortableTable.js";
 import {FormHandler, BasicForm, FormHandlerWithGenerators, BasicFormWithGenerators} from "./forms/index.js";
+import Dispatcher from "./dispatcher/Dispatcher";
 import helpers from "./helpers.js";
 import css from "./css.js";
 
@@ -21,6 +22,7 @@ export {
     BasicForm,
     FormHandlerWithGenerators,
     BasicFormWithGenerators,
+    Dispatcher,
     helpers,
     css
 };
@@ -38,6 +40,7 @@ const malicacid = {
     BasicForm,
     FormHandlerWithGenerators,
     BasicFormWithGenerators,
+    Dispatcher,
     helpers,
     css
 };
