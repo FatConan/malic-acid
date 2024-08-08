@@ -48,14 +48,33 @@ export default class ElementHelper{
      */
     static findParentByMatch(element, match){
         while(element && element.tagName !== null){
-            if(element.matches){
-                if(element.matches(match)){
+            if(element.matches && element.matches(match)){
                     return element;
-                }
             }
             element = element.parentNode;
         }
         return null;
+    }
+
+    /**
+     * Find all the elements tracking up the provided element's branch that match the provided string
+     * @param element The starting element
+     * @param match The string to match
+     * @param reversed boolean - determine of the matched array should return reversed
+     * @returns {*[]}
+     */
+    static finaAllParentsByMatch(element, match, reversed){
+        let parents = [];
+        while(element && element.tagName !== null){
+            if(element.matches && element.matches(match)){
+                parents.push(element);
+            }
+            element = element.parentNode;
+        }
+        if(reversed){
+            parents.reverse();
+        }
+        return parents;
     }
 
     /**
