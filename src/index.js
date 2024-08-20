@@ -1,7 +1,7 @@
 import BaseClass from "./classes/BaseClass.js";
 import ListeningClass from "./classes/ListeningClass.js";
 import ElementHelper from "./dom/ElementHelper.js";
-import {BaseHighLevelEventHandler, HighLevelEventHandler, HighLevelKeyPressEventHandler} from "./events/index.js";
+import {handler, dropHandler, BaseHighLevelEventHandler, HighLevelEventHandler, HighLevelKeyPressEventHandler} from "./events/index.js";
 import ConfirmationModal from "./modal/ConfirmationModal.js";
 import SortableTable from "./htmlhelpers/SortableTable.js";
 import {FormHandler, BasicForm, FormHandlerWithGenerators, BasicFormWithGenerators} from "./forms/index.js";
@@ -16,6 +16,8 @@ export {
     BaseHighLevelEventHandler,
     HighLevelEventHandler,
     HighLevelKeyPressEventHandler,
+    handler,
+    dropHandler,
     FormHandler,
     BaseClass,
     ListeningClass,
@@ -34,6 +36,8 @@ const malicacid = {
     BaseHighLevelEventHandler,
     HighLevelEventHandler,
     HighLevelKeyPressEventHandler,
+    handler,
+    dropHandler,
     FormHandler,
     BaseClass,
     ListeningClass,

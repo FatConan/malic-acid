@@ -6,32 +6,10 @@ export default class HighLevelEventHandler extends BaseHighLevelEventHandler {
      * element but listened for at an ancestor can provide the listener with that intended ancestor to work with automatically.
      * @param options An object of configuration options:
      *  {
-     *      touchscreen: true/false, //Determines whether we listen for click events or touch events
+     *      touchscreen: true/false, //Determines whether we listen for click events or touch events by default
      *      loadingWarning: function //Which function to trigger in the event it appears that an unhandled anchor is being clicked.
      *  }
      */
-
-    static hookup(options){
-        if(!window.eventHandler){
-            window.eventHandler = new this(options);
-        }
-    }
-
-    static grabHandler(){
-        if(window.eventHandler){
-            return window.eventHandler.defaultListenerCollection;
-        }
-        throw "BaseHighLevelEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
-        " handler by calling BaseHighLevelEventHandler.hookup({options})";
-    }
-
-    static grabGlobalHandler(){
-        if(window.eventHandler){
-            return window.eventHandler;
-        }
-        throw "BaseHighLevelEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
-        " handler by calling BaseHighLevelEventHandler.hookup({options})";
-    }
 
     constructor(options){
         options.defaultEvent = options.touchscreen ? "touchstart" : "click";

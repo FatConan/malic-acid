@@ -130,8 +130,8 @@ then to "grab" a listener collection from it where we can start adding handlers.
 
 ```javascript
 malicacid.HighLevelEventHandler.hookup({target: "html"});
-const handler = malicacid.HighLevelEventHandler.grabHandler();
-handler.listeners;
+const eventHandler = malicacid.HighLevelEventHandler.grabHandler();
+eventHandler.listeners;
 ```
 
 > [object Object]
@@ -147,9 +147,7 @@ depending on the device being used.
 ### Adding a listener
 
 ```javascript
-malicacid.HighLevelEventHandler.hookup({target: "html"});
-const handler = malicacid.HighLevelEventHandler.grabHandler();
-handler.addListener("button", (e, args) => {
+eventandler.addListener("button", (e, args) => {
     args.$matchedEl;
 });
 handler.textList()
@@ -162,21 +160,36 @@ handler.textList()
 >}
 
 
-### Addiing a listener for a different event
+### Adding a listener for a different event
 
 As mentioned earlier `addListener` adds a new handler for the default event (`touchstart` or `click`) but frequently we 
 will need to listen for other events on the page. These may be standard, or they may be custom events f our own making. 
 Both work in the same way, so let's listen for and trigger our own `foobar` event:
 
 ```javascript
-malicacid.HighLevelEventHandler.hookup({target: "html"});
-const handler = malicacid.HighLevelEventHandler.grabHandler();
-handler.addListenerOnEvent("foobar", "html", (e, args) => {
+
+eventHandler.addListenerOnEvent("foobar", "html", (e, args) => {
     console.log("ding!");
 });
 handler.trigger("foobar",document.getElementsByTagName("html"));
 ```
 No output is returned when executed, but you will see "ding!" in the console when the code is executed.
+
+### Adding a listener group
+
+While the listeners above have been added to the default `ListenerCollection` the addListenerGroup method provides a way
+to create a listener group: a namespaced ListenerCollection that may be used for containing listeners for a specific
+piece of functionality so that they can be managed collectively.
+
+Note: In the interactive version of this documentation whenever `eventHandler` is referenced in the code snippet a 
+`ListenerCollection` named "demo" is being used. It is established in the supporting code using the snippet:
+
+````javascript 
+malicacid.HighLevelEventHandler.hookup({target: "html"});
+const eventHandler = malicacid.HighLevelEventHandler.grabGlobalHandler().addListenerGroup("demo");
+````
+
+
 
 ## Base Classes
 

@@ -1,5 +1,5 @@
 import ElementHelper from "../dom/ElementHelper.js";
-import HighLevelEventHandler from "../events/HighLevelEventHandler.js";
+import {handler} from "../events/index.js";
 
 export default class Dispatcher{
     static viewCheckerAndFormatter(availableViewReference, requestedViews, options){
@@ -21,9 +21,7 @@ export default class Dispatcher{
         }
 
         this.eventGroupId = ElementHelper.namespacedGuid("dispatcher");
-
-        const globalEventHandler = HighLevelEventHandler.grabGlobalHandler();
-        this.eventHandler = globalEventHandler.addListenerGroup(this.eventGroupId);
+        this.eventHandler = handler(this.eventGroupId);
 
         this.target = document.createElement("script", {id: this.eventGroupId});
         document.body.append(this.target);

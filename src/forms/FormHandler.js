@@ -1,7 +1,7 @@
 import "jquery";
 import _ from "underscore";
 import ElementHelper from "../dom/ElementHelper.js";
-import HighLevelEventHandler from "../events/HighLevelEventHandler.js";
+import {handler, dropHandler} from "../events/index.js";
 
 export default class FormHandler{
     constructor(options){
@@ -17,9 +17,8 @@ export default class FormHandler{
         this.isDirty = false;
 
         this.elementHelper = ElementHelper;
-        const globalEventHandler = HighLevelEventHandler.grabGlobalHandler();
         this.formEventGroupName = ElementHelper.namespacedGuid("form");
-        this.eventHandler = globalEventHandler.addListenerGroup(this.formEventGroupName);
+        this.eventHandler = handler(this.formEventGroupName);
 
         this.formInitialPrepare(options);
     }
@@ -51,10 +50,9 @@ export default class FormHandler{
     }
 
     clearAllListeners(){
-        const globalEventHandler = HighLevelEventHandler.grabGlobalHandler();
-        globalEventHandler.removeListenerGroup(this.formEventGroupName);
+        dropHandler(this.formEventGroupName);
         this.formEventGroupName = ElementHelper.guid();
-        this.eventHandler = globalEventHandler.addListenerGroup(this.formEventGroupName);
+        this.eventHandler = handler(this.formEventGroupName);
     }
 
     buildInputReference(formElement){

@@ -10,7 +10,7 @@ export default class BaseHighLevelEventHandler{
      * element but listened for at an ancestor can provide the listener with that intended ancestor to work with automatically.
      * @param options An object of configuration options:
      *  {
-     *      touchscreen: true/false, //Determines whether we listen for click events or touch events
+     *      defaultEvent: which event should addListener hook into by default, //Determines whether we listen for click events or touch events
      *      loadingWarning: function //Which function to trigger in the event it appears that an unhandled anchor is being clicked.
      *  }
      */
@@ -24,10 +24,10 @@ export default class BaseHighLevelEventHandler{
         this.debug = options.debug;
 
         //We can specify in the options a loadWarning to function to fire on the event that we hit a link that looks
-        //like it should have a javascript action associated with it (a link with <a href="#">) to indicator to the
+        //like it should have a javascript action associated with it (a link with <a href="#">) to indicate to the
         //developer that it looks like we have an unregistered event.
 
-        //Should we actually want to a link to link to # (such as a top of page link) we can specify a null listener on that
+        //Should we actually want to a link to # (such as a top of page link) we can specify a null listener on that
         //element.
         if(options.loadingWarning){
             this.loadingWarning = options.loadingWarning;
@@ -39,28 +39,6 @@ export default class BaseHighLevelEventHandler{
 
         this.target = $(options.target);
         this.eventProcessors = {};
-    }
-
-    static hookup(options){
-        if(!window.eventHandler){
-            window.eventHandler = new this(options);
-        }
-    }
-
-    static grabHandler(){
-        if(window.eventHandler){
-            return window.eventHandler.defaultListenerCollection;
-        }
-        throw "BaseHighLevelEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
-        " handler by calling BaseHighLevelEventHandler.hookup({options})";
-    }
-
-    static grabGlobalHandler(){
-        if(window.eventHandler){
-            return window.eventHandler;
-        }
-        throw "BaseHighLevelEventHandler has not been instantiated, or is not present at the expected location. Instantiate the " +
-        " handler by calling BaseHighLevelEventHandler.hookup({options})";
     }
 
     addListenerGroup(groupName){

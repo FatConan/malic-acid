@@ -1,13 +1,12 @@
 import "jquery";
 import "jquery-ui";
 import malicacid from "malicacid";
-import {HighLevelEventHandler, BasicForm, BasicFormWithGenerators, ConfirmationModal} from "malicacid";
+import {handler, dropHandler, BasicForm, BasicFormWithGenerators, ConfirmationModal} from "malicacid";
 import {css} from "malicacid";
 
-
 css.formsCSS(); //Add form CSS
-HighLevelEventHandler.hookup({target: "html"}); //Add a global event handler
-const eventHandler = HighLevelEventHandler.grabHandler();
+const handlerOpts = {target: "html"};
+const eventHandler = handler(handlerOpts);
 
 class BaseFormOverride extends BasicForm{
     constructor(options){
@@ -61,12 +60,13 @@ class InteractiveForm extends BasicForm{
             this.addErrors(errorData);
         };
 
+        let demoEventHandler = handler("demo");
         const output = this.formElement.find(".interactive-output");
         this.emptyErrors();
         let data = this.getFormData();
 
         try{
-            let response = this.evaluate.call({"$": $, "malicacid": malicacid}, data.interactive_text);
+            let response = this.evaluate.call({"$": $, "malicacid": malicacid, "eventHandler": demoEventHandler}, data.interactive_text);
             if(response != null){
                 output.val(response);
             }else{
@@ -75,6 +75,8 @@ class InteractiveForm extends BasicForm{
         }catch(error){
             showError(error);
         }
+        dropHandler("demo");
+
         //Allow resubmissions by unlocking the forms
         this.unlock();
     }
@@ -131,7 +133,7 @@ const aboutDialog = new ConfirmationModal({
             " Would you like to learn more about Malic Acid?"
     },
     {
-        yes: function(){
+        yes: () => {
             window.location.href = "https://github.com/FatConan/malic-acid";
         }
     }

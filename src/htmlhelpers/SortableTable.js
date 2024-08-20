@@ -127,9 +127,9 @@ export default class SortableTableView extends ListeningClass{
         if(this.targetTableTimeouts[index] !== null){
             clearTimeout(this.targetTableTimeouts[index]);
         }
-        this.targetTableTimeouts[index] = setTimeout(function(){
+        this.targetTableTimeouts[index] = setTimeout(() => {
             this.filter(tableElements, filterTarget.val());
-        }.bind(this), 200);
+        }, 200);
     }
 
     filter(table, searchText){

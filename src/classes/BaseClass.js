@@ -1,6 +1,7 @@
 import _ from "underscore";
 import ElementHelper from "../dom/ElementHelper.js";
 import RequestParameters from "../request/RequestParameters.js";
+import {handler} from "../events/index.js";
 
 /*
 The BaseClass is designed as a starting point for writing classes that might require common MalicAcid features such as
@@ -31,10 +32,6 @@ export default class BaseClass{
 
     //Add the eventHandler from window to the object so we can use it addListeners
     hookEventListener(){
-        if(window.eventHandler) {
-            this.eventHandler = window.eventHandler.defaultListenerCollection;
-        }else{
-            this.eventHandler = null;
-        }
+        this.eventHandler = handler();
     }
 }
