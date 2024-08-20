@@ -11,7 +11,7 @@ against a set of rules as well as, in recent additions, mechanisms for
 representing and generating HTML forms for that purpose in
 a standardised way (based around Play's Twirl templating library).
 
-*Malic Acid* is a collection of Javascript (Actually ECMAScript 6) classes and
+*Malic Acid* is a collection of Javascript (actually ECMAScript 6) classes and
 helpers designed to add frequently encountered interactions atop the HTML forms
 as well as offering a standardised mechanism to translate HTML form data into
 JSON (and vice versa) so that it can be submitted to REST endpoints. Like

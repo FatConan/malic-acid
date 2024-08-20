@@ -150,7 +150,7 @@ export default class BaseHighLevelEventHandler{
         }
 
         if(!this.eventProcessors.hasOwnProperty(event)){
-            console.log(`Establish the listener for ${event}`, this.target[0]);
+            //console.log(`Establish the listener for ${event}`, this.target[0]);
             this.target[0].addEventListener(event, (e) => {
                 processor(e);
             });
