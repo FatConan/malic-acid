@@ -5,8 +5,7 @@ import {handler, dropHandler, BasicForm, BasicFormWithGenerators, ConfirmationMo
 import {css} from "malicacid";
 
 css.formsCSS(); //Add form CSS
-const handlerOpts = {target: "html"};
-const eventHandler = handler(handlerOpts);
+const eventHandler = handler();
 
 class BaseFormOverride extends BasicForm{
     constructor(options){
@@ -60,13 +59,20 @@ class InteractiveForm extends BasicForm{
             this.addErrors(errorData);
         };
 
-        let demoEventHandler = handler("demo");
+        const callWithContext = (toCall) => {
+          const demoEventHandler = handler("demo");
+          let context = {"$": $, "malicacid": malicacid, "eventHandler": demoEventHandler};
+          let response = this.evaluate.call(context, toCall);
+          dropHandler("demo");
+          return response;
+        }
+
         const output = this.formElement.find(".interactive-output");
         this.emptyErrors();
         let data = this.getFormData();
 
         try{
-            let response = this.evaluate.call({"$": $, "malicacid": malicacid, "eventHandler": demoEventHandler}, data.interactive_text);
+            let response = callWithContext(data.interactive_text);
             if(response != null){
                 output.val(response);
             }else{
@@ -75,7 +81,6 @@ class InteractiveForm extends BasicForm{
         }catch(error){
             showError(error);
         }
-        dropHandler("demo");
 
         //Allow resubmissions by unlocking the forms
         this.unlock();
@@ -83,6 +88,7 @@ class InteractiveForm extends BasicForm{
 
     formInteractivityInit(){
         this.eventHandler.addListener(".interactive-test", (e, args) => {
+            e.preventDefault();
             this.submitInteractive();
         });
 

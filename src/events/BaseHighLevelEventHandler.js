@@ -1,5 +1,4 @@
 import "jquery";
-import _ from "underscore";
 import ElementHelper from "../dom/ElementHelper.js";
 import ListenerCollection from "./ListenerCollection.js";
 import NamespacedListenerCollection from "./NamespacedListenerCollection.js";
@@ -19,7 +18,7 @@ export default class BaseHighLevelEventHandler{
         this.defaultEvent = options.defaultEvent;
         this.elementHelper = ElementHelper;
         this.defaultListenerCollection = new ListenerCollection(this);
-        this.namedListenerCollections = {};
+        this.namedListenerCollections = new Map();
 
         this.debug = options.debug;
 
@@ -42,6 +41,9 @@ export default class BaseHighLevelEventHandler{
     }
 
     addListenerGroup(groupName){
+        if(typeof groupName !== "string"){
+            console.log(groupName);
+        }
         if(this.namedListenerCollections.hasOwnProperty(groupName)){
             console.warn(`Named Listener Collection ${groupName} already exists`);
             return this.namedListenerCollections[groupName];
@@ -64,11 +66,9 @@ export default class BaseHighLevelEventHandler{
     list(){
         console.log("Base Listeners:");
         this.defaultListenerCollection.list();
-        for(let g in this.namedListenerCollections){
-            if(this.namedListenerCollections.hasOwnProperty(g)){
-                console.log(`Plugin Listeners [${g}]:`);
-                this.namedListenerCollections[g].list();
-            }
+        for(const [group, listeners] of Object.entries(this.namedListenerCollections)){
+            console.log(`Plugin Listeners [${group}]:`);
+            listeners.list();
         }
     }
 
@@ -105,11 +105,9 @@ export default class BaseHighLevelEventHandler{
                 simpleTopLink = true;
             }
 
-            let activeListeners = _.extend({}, this.defaultListenerCollection.listeners[event]);
-            for(let group in this.namedListenerCollections){
-                if(this.namedListenerCollections.hasOwnProperty(group)){
-                    activeListeners = _.extend(activeListeners, this.namedListenerCollections[group].listeners[event]);
-                }
+            let activeListeners = { ...this.defaultListenerCollection.listeners[event]};
+            for(const [group, listeners] of Object.entries(this.namedListenerCollections)){
+                activeListeners = {...activeListeners, ...listeners.listeners[event]};
             }
 
             //From the trigger element work up through the dom until we find an matching event handler, if we find a match return it

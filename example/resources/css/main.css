@@ -97,6 +97,7 @@ p.powered{
 .cms pre code{
     display: block;
     background: #ddd;
+    font-size: 80%;
     font-family: monospace;
     max-width: 100%;
     overflow: auto;
@@ -115,6 +116,13 @@ p.powered{
 
 .cms pre code.language-javascript:hover{
     background: palegoldenrod;
+}
+
+.cms ul {
+   padding: .5em 1em;
+}
+.cms li {
+    margin-bottom: .5em;
 }
 
 blockquote::before{

@@ -1,8 +1,7 @@
 # Malic Acid
 
-A javascript HTML form handling library for use atop Formic Acid. Formic and
-Malic acids are designed around the principle of
-bridging HTML forms to JSON Rest APIs.
+A javascript HTML form handling and utility library for use atop Formic Acid. Formic and
+Malic acids are designed around the principle of bridging HTML forms to JSON Rest APIs.
 
 [Formic Acid](https://github.com/FatConan/formic-acid) provides extraction and
 validation mechanisms for validating JSON data (it will also process multipart
@@ -11,10 +10,10 @@ against a set of rules as well as, in recent additions, mechanisms for
 representing and generating HTML forms for that purpose in
 a standardised way (based around Play's Twirl templating library).
 
-*Malic Acid* is a collection of Javascript (actually ECMAScript 6) classes and
+*Malic Acid* is a collection of Javascript (specifically ECMAScript 6) classes and
 helpers designed to add frequently encountered interactions atop the HTML forms
 as well as offering a standardised mechanism to translate HTML form data into
-JSON (and vice versa) so that it can be submitted to REST endpoints. Like
+JSON (and vice versa) so that it may be submitted to REST endpoints. Like
 Formic, Malic is based on a more ad-hoc set of implementations in a production
 system and has been factored out with the intent that it can eventually be
 brought back into the said system as a replacement for those looser pieces.
@@ -24,9 +23,15 @@ sort of testing and validation one might expect from a project. It has however,
 been incorporated into an existing production project where its functionality
 will be refined, and test harnesses constructed. Eventually.
 
+## Requirements
+
+* Malic required Node to build its distributable.
+* The example project (which uses Malic Acid to render this README as an interactive website 
+  requires [Sand](https://github.com/FatConan/sand), a Python static site generator).
+
 ## Build
 
-Install Node and run:
+To build the *distributable version of Malic Acid* clone this repo, install Node.js and run:
 
 ```
 npx esbuild --bundle src/index.js --format=esm --outdir=dist --external:jquery --external:underscore --external:jquery-ui --minify --sourcemap
@@ -34,17 +39,55 @@ npx esbuild --bundle src/index.js --format=esm --outdir=dist --external:jquery -
 
 To create the dist folder.
 
+To build and launch the *example project* clone the repo, install Sand and run:
+
+```
+sand example/ --serve
+```
+
+from within the cloned directory. This will launch a server that may be accessed through a browser
+at `http://localhost:9000`.
+
+
 ## Usage
 
 Malic is designed to be pretty pick-and-choose. It comes with a number of
 components that may be helpful when used on their own, or in conjunction
-with others. It's an attempt (as with Formic) to be a little less prescriptive
-in its approach. There are obviously ways in which it's designed to work in an
-entirely joined up system, but components can be used in a way that means that
-this isn't rigidly locked in.
+with others. It's an attempt (as is Formic) to be less prescriptive
+in its approach than some alternatives. There are obviously ways in which it's designed to 
+work in a joined-up system, but components may be used individually without sticking 
+to any rigid ideology.
 
 Malic uses JQuery and underscore for making things like DOM navigation and
 templating cleaner and easier.
+
+Malic is very specifically aimed at use in-browser, within HTML pages, and with minimal 
+dependencies. While the `main` branch of the project contains a version that is built and packaged as
+a Node module, this branch is an attempt to break free of that Node ecosystem as much as possible.
+The build line above is geared toward minifying and packaging purely for the purposes of distribution
+and request-minimisation. 
+
+While the exmaple project uses a helper method to build the importmap and script tags, the generated
+output is displayed here:
+
+```html
+<script type="importmap">{
+    "imports": {"jquery": "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js", 
+    "jquery-ui": "https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js", 
+    "underscore": "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-esm.min.js", 
+    "malicacid": "./resources/scripts/malic-acid/index.js"}}
+</script>
+<script type="module"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+<script type="module"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+<script type="module"
+        src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.6/underscore-esm.min.js"></script>
+<script type="module" src="./resources/scripts/malic-acid/index.js"></script>
+<script type="module" src="/resources/scripts/main.js"></script><
+```
+
+## Getting Started With Malic Acid
 
 Malic may be imported either as a unit or by selecting specific modules. For example:
 
@@ -53,8 +96,8 @@ import malicacid from "malicacid";
 malicacid.ElementHelper.guid();
 > "c535b471-ca10-acea-dd84-0437c3ebbb7a"
 ```
-provides the malicacid object referenced in the examples below, but more specific imports may be used to pull in 
-particular modules:
+provides the malicacid object referenced in the examples below, but more specific imports may be 
+used to pull-in particular modules:
 
 ```
 import {ElementHelper} from "malicacid";
@@ -123,34 +166,63 @@ malicacid.ElementHelper.findParentTag(span[0], "div");
 
 ## High Level Event Handler
 
-The high level click event handler is an event handler that can be registered on a particular element and used to 
-capture click events bubbling up from any child elements by comparing them to a known set of matching keys in a map. 
-The first step in using the event handler is to "hookup" the listener so that it sits ready to listen to events and 
-then to "grab" a listener collection from it where we can start adding handlers.
+Malic acid originally came with its own high level click event handler, allowing handlers for click 
+events on elements within the page to be managed in one place. Over time this was expanded to allow
+for grouped collections of handlers so that, for example, all the click events for a specific form
+could be managed in one group (and all of them dropped at once should the form be removed from the 
+DOM as it might be in the case of a popup).
 
-```javascript
+This ES6 version expanded on this concept again, providing high level event handlers for any event, 
+while also providing backwards-compatible handlers that wrap this new functionality with the concept
+of "default" events so that they may work as the old click event handlers did.
+
+The aim of the high level handlers was to reduce the number of listeners required to handle complex
+interactions and to perform a number of steps were commonly required when capturing the event: 
+resolving the intended target DOMElement (and wrapping it with JQuery to ease manipulation), 
+collecting the actual trigger element and offering a means of detecting DOMElements for which a 
+handler may have been missed.
+
+The high level event handler can be registered on a particular element and used to 
+capture any events bubbling up from any child elements by comparing them to a known set of matching 
+keys in a map.  The first step in using the event handler is to "hookup" the listener so that it 
+sits ready to listen to events and then to "grab" a listener collection from it where we can start 
+adding handlers.
+
+In the `main` and legacy version of Malic Acid this was done using multiple calls:
+
+```
 malicacid.HighLevelEventHandler.hookup({target: "html"});
 const eventHandler = malicacid.HighLevelEventHandler.grabHandler();
 eventHandler.listeners;
 ```
 
+Over time, it has become apparent that while this level of granularity may be useful in some 
+circumstances, the general case is normally sufficient, so in this ES6 version the calls have been 
+simplified:
+
+```javascript
+const eventHandler = malicacid.handler();
+eventHandler.listeners;
+```
+
 > [object Object]
 
-Once established the `grabHandler` call will return a default `ListenerCollection` that provides the ability to add 
-handlers for specific events and targets. The `addListenerOnEvent` call creates a map of events, target elements 
-and actions. A single global listener will pick up on any events added via this call and then find the first 
-matching ancestor to the element pointed at by `event.target` to those stored in its map.
+The `handler()` call will return a default `ListenerCollection` that provides the ability to add 
+handlers for specific events and targets. The `addListenerOnEvent` call creates a map of events, 
+target elements and actions. A single global listener will pick up on any events added via this call 
+and then find the first matching ancestor to the element pointed at by `event.target` to those 
+stored in its map.
 
-A short-hand `addListener` method will add a handler for the default event type, either a `click` or `touchstart` event
-depending on the device being used.
+A short-hand `addListener` method will add a handler for the default event type, either a `click` 
+or `touchstart` event depending on the device being used.
 
 ### Adding a listener
 
 ```javascript
-eventandler.addListener("button", (e, args) => {
+this.eventHandler.addListener("button", (e, args) => {
     args.$matchedEl;
 });
-handler.textList()
+this.eventHandler.textList()
 ```
 
 > ... (Other in page listeners)
@@ -167,11 +239,10 @@ will need to listen for other events on the page. These may be standard, or they
 Both work in the same way, so let's listen for and trigger our own `foobar` event:
 
 ```javascript
-
-eventHandler.addListenerOnEvent("foobar", "html", (e, args) => {
+this.eventHandler.addListenerOnEvent("foobar", "html", (e, args) => {
     console.log("ding!");
 });
-handler.trigger("foobar",document.getElementsByTagName("html"));
+this.eventHandler.trigger("foobar",document.getElementsByTagName("html"));
 ```
 No output is returned when executed, but you will see "ding!" in the console when the code is executed.
 
@@ -181,12 +252,12 @@ While the listeners above have been added to the default `ListenerCollection` th
 to create a listener group: a namespaced ListenerCollection that may be used for containing listeners for a specific
 piece of functionality so that they can be managed collectively.
 
-Note: In the interactive version of this documentation whenever `eventHandler` is referenced in the code snippet a 
+Note: In the interactive version of this documentation whenever `this.eventHandler` is referenced in the code snippet a 
 `ListenerCollection` named "demo" is being used. It is established in the supporting code using the snippet:
 
-````javascript 
-malicacid.HighLevelEventHandler.hookup({target: "html"});
-const eventHandler = malicacid.HighLevelEventHandler.grabGlobalHandler().addListenerGroup("demo");
+````javascript
+const context = {eventHandler: malicacid.handler("demo")};
+//Passed to an evaulate.call(context, string_to_evaluate);
 ````
 
 
