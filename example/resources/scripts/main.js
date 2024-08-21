@@ -92,7 +92,6 @@ class InteractiveForm extends BasicForm{
     }
 
     formInteractivityInit(){
-        console.log("Booting..." + this.formElement.attr("id"));
         this.eventHandler.addListener(`${this.formElement.attr("id")} .interactive-test`, (e, args) => {
             e.preventDefault();
             this.submitInteractive();
