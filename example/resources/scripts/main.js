@@ -62,15 +62,20 @@ class InteractiveForm extends BasicForm{
         const callWithContext = (toCall) => {
           const demoEventHandler = handler("demo");
           let context = {"$": $, "malicacid": malicacid, "eventHandler": demoEventHandler};
-          let response = this.evaluate.call(context, toCall);
-          dropHandler("demo");
+          let response = null;
+          try{
+              response = this.evaluate.call(context, toCall);
+          }catch(error){
+              throw error;
+          }finally{
+              dropHandler("demo");
+          }
           return response;
         }
 
         const output = this.formElement.find(".interactive-output");
         this.emptyErrors();
         let data = this.getFormData();
-
         try{
             let response = callWithContext(data.interactive_text);
             if(response != null){
@@ -87,7 +92,8 @@ class InteractiveForm extends BasicForm{
     }
 
     formInteractivityInit(){
-        this.eventHandler.addListener(".interactive-test", (e, args) => {
+        console.log("Booting..." + this.formElement.attr("id"));
+        this.eventHandler.addListener(`${this.formElement.attr("id")} .interactive-test`, (e, args) => {
             e.preventDefault();
             this.submitInteractive();
         });
@@ -99,13 +105,15 @@ class InteractiveForm extends BasicForm{
 }
 
 const basicForm = new BaseFormOverride({form: $("#basic-form")});
-const interactiveForm = new InteractiveForm({form: "#interactive_form"});
+const interactiveForm = new InteractiveForm({form: $("#interactive_form")});
+
 const interactiveModalTarget = $("#modal-interactive");
 const interactiveModal = {
     target: interactiveModalTarget,
     form: new InteractiveForm({form: interactiveModalTarget.find("form")}),
     dialog: interactiveModalTarget.dialog({title: "Interactive Form", width: 500, autoOpen: false})
 };
+
 const form = new DeviceStatusForm({form: $("#form_device")});
 
 const submitFunc = (e, args) => {
@@ -150,6 +158,7 @@ eventHandler.addListener("#submit-this", submitFunc);
 eventHandler.addListener("#populate-form", (e, args) => {
     loadConfirm.open();
 });
+
 eventHandler.addListener("a.about", (e, args) => {
     e.preventDefault();
     aboutDialog.open();

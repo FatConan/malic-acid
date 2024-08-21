@@ -225,18 +225,19 @@ this.eventHandler.addListener("button", (e, args) => {
 this.eventHandler.textList()
 ```
 
-> ... (Other in page listeners)
-> button
+>Event: click
+>button
 >(e, args) => {
->args.$matchedEl;
+>  args.$matchedEl;
 >}
 
 
 ### Adding a listener for a different event
 
-As mentioned earlier `addListener` adds a new handler for the default event (`touchstart` or `click`) but frequently we 
-will need to listen for other events on the page. These may be standard, or they may be custom events f our own making. 
-Both work in the same way, so let's listen for and trigger our own `foobar` event:
+As mentioned earlier `addListener` adds a new handler for the default event 
+(`touchstart` or `click`) but frequently we will need to listen for other events on the page. 
+These may be standard, or they may be custom events of our own making. Both work in the same way, 
+so let's listen for and trigger our own `foobar` event:
 
 ```javascript
 this.eventHandler.addListenerOnEvent("foobar", "html", (e, args) => {
@@ -244,13 +245,21 @@ this.eventHandler.addListenerOnEvent("foobar", "html", (e, args) => {
 });
 this.eventHandler.trigger("foobar",document.getElementsByTagName("html"));
 ```
+
 No output is returned when executed, but you will see "ding!" in the console when the code is executed.
 
 ### Adding a listener group
 
-While the listeners above have been added to the default `ListenerCollection` the addListenerGroup method provides a way
-to create a listener group: a namespaced ListenerCollection that may be used for containing listeners for a specific
-piece of functionality so that they can be managed collectively.
+While the listeners above have been added to the default `ListenerCollection` the `addListenerGroup`
+method provides a way to create a listener group: a `NamespacedListenerCollection` that may be used 
+for containing listeners for a specific piece of functionality so that they can be managed 
+collectively.
+
+Listener groups were previously added by accessing the globalEventHandler and calling 
+addListenerGroup on it:
+```
+
+```
 
 Note: In the interactive version of this documentation whenever `this.eventHandler` is referenced in the code snippet a 
 `ListenerCollection` named "demo" is being used. It is established in the supporting code using the snippet:
