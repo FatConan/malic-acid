@@ -1,7 +1,7 @@
-import $ from "jquery";
+import "jquery";
 import _ from "underscore";
-import FormHandler from "./FormHandler";
-import ElementHelper from "../dom/ElementHelper";
+import FormHandler from "./FormHandler.js";
+import ElementHelper from "../dom/ElementHelper.js";
 
 export default class FormHandlerWithGenerators extends FormHandler{
     constructor(options){
@@ -16,11 +16,12 @@ export default class FormHandlerWithGenerators extends FormHandler{
         this.generatorAdd();
 
         this.setupFormDataAndErrorHandling(options);
-        this.backbone.on("form:reset", function(){
-            $(this.generators).each(function(i, g){
+        this.on("form:reset", (e) => {
+            console.log("RESET GENERATORS");
+            $(this.generators).each((i, g) => {
                 g.generatorRowStore.empty();
             });
-        }.bind(this));
+        });
 
         this.formInteractivityInit(options);
     }
@@ -35,7 +36,7 @@ export default class FormHandlerWithGenerators extends FormHandler{
 
     generatorAdd(){
         let generatorCollections = this.formElement.find(".generator");
-        $(generatorCollections).each(function(i, generator){
+        $(generatorCollections).each((i, generator) => {
             let $generator = $(generator);
             let template = this.unescapeTemplate($generator.data("template"));
             let generatorID = ElementHelper.guid();
@@ -50,14 +51,11 @@ export default class FormHandlerWithGenerators extends FormHandler{
             };
 
             this.generators.push(augmentedGenerator);
-            this.eventHandler.addListener(`.generator[data-generatedid="${generatorID}"] button`,  function(){
-                const generator = augmentedGenerator;
-                return function(e, args){
+            this.eventHandler.addListener(`.generator[data-generatedid="${generatorID}"] button`,  (e, args) => {
                     e.preventDefault();
-                    this.generatorHandler(generator, args.matchedEl);
-                }.bind(this)
-            }.bind(this)());
-        }.bind(this));
+                    this.generatorHandler(augmentedGenerator, args.matchedEl);
+            });
+        });
     }
 
     generatorHandler(augmentedGenerator, target){
@@ -88,10 +86,10 @@ export default class FormHandlerWithGenerators extends FormHandler{
     addErrors(errorData){
         this.addErrorsFromElement(errorData, this.formElement, this.inputRows, this.errorReference);
 
-        $(this.generators).each(function(i, generator){
+        $(this.generators).each((i, generator) => {
             let ref = this.buildErrorReference(generator.generator);
             this.addErrorsFromElement(errorData, generator.generator, ref.inputRows, ref.errorReference);
-        }.bind(this));
+        });
 
         if(errorData) {
             this.errorExtensions(errorData);
@@ -108,10 +106,10 @@ export default class FormHandlerWithGenerators extends FormHandler{
 
     emptyErrors(){
         this.emptyErrorsFromElement(this.formElement, this.inputRows);
-        $(this.generators).each(function(i, generator){
+        $(this.generators).each((i, generator) => {
             let ref = this.buildErrorReference(generator.generator);
             this.emptyErrorsFromElement(generator.generator, ref.inputRows);
-        }.bind(this));
+        });
     }
 
     findInCollation(collated, collatedObj, key, value, ident){
@@ -139,7 +137,7 @@ export default class FormHandlerWithGenerators extends FormHandler{
             let val = this.getFieldDataFromElement(fieldName, inputs, generator.generator);
             this.findInCollation(collated, collatedObj, field, val, ident);
         }
-        $(collated).each(function(i, ident){
+        $(collated).each((i, ident)=> {
             preparedData.push(collatedObj[ident]);
         });
         return preparedData;

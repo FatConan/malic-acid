@@ -1,6 +1,6 @@
-@import url("../reset.css");
+@import url("../css/reset.css");
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Anonymous+Pro');
-@import url("./jquery-ui-1.12.1.custom/jquery-ui.min.css");
+@import url("jquery-ui-1.12.1.custom/jquery-ui.min.css");
 
 html{
     font-family: 'Roboto Condensed', sans-serif;
@@ -12,6 +12,8 @@ html{
 strong{
     font-weight: bold;
 }
+
+
 
 button, select, input, textarea{
     font-family: 'Roboto Condensed', sans-serif;

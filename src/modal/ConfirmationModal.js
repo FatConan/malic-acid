@@ -1,7 +1,7 @@
-import $ from "jquery";
-import 'jquery-ui-bundle';
+import "jquery";
+import "jquery-ui";
 import _ from "underscore";
-import ConfirmationTemplate from "./templates/confirmationModal.html";
+import ConfirmationTemplate from "./templates/ConfirmationModalHTML.js";
 
 export default class ConfirmationModal{
     constructor(modalOptions, actions){

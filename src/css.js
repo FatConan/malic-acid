@@ -1,1 +1,7 @@
-import defaultStyles from  './css/forms/forms.css';
+import {formsCSS} from "./css/index.js";
+
+const css = {
+    formsCSS
+};
+
+export default css;

@@ -1,14 +1,19 @@
-import $ from "jquery";
+import "jquery";
 
 export default class ElementHelper{
     static guid(){
-        function s4() {
+        const s4 = () => {
             return Math.floor((1 + Math.random()) * 0x10000)
                 .toString(16)
                 .substring(1);
         }
+
         return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
             s4() + '-' + s4() + s4() + s4();
+    }
+
+    static namespacedGuid(ns){
+        return `${ns}-${ElementHelper.guid()}`;
     }
 
     static getData(element, dataLabel){
@@ -49,7 +54,7 @@ export default class ElementHelper{
     static findParentByMatch(element, match){
         while(element && element.tagName !== null){
             if(element.matches && element.matches(match)){
-                    return element;
+                return element;
             }
             element = element.parentNode;
         }
@@ -89,8 +94,13 @@ export default class ElementHelper{
         while(element && element.tagName !== null){
             if(element.matches){
                 for(let m in matchObj){
-                    if(matchObj.hasOwnProperty(m) && element.matches(m)){
-                        return [element, m, matchObj[m]];
+                    if(matchObj.hasOwnProperty(m)){
+                        if(element === m){
+                            return [element, m, matchObj[m]];
+                        }
+                        if(element.matches(m)){
+                            return [element, m, matchObj[m]];
+                        }
                     }
                 }
             }

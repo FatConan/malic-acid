@@ -72,7 +72,7 @@ module.exports = {
 
     entry: {
         malicacid: path.resolve(__dirname, "src/index.js"),
-        malicacidcss: path.resolve(__dirname, "src/css.js")
+        //malicacidcss: path.resolve(__dirname, "src/css.js")
     },
 
     output: {

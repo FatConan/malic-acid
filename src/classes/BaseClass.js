@@ -1,6 +1,13 @@
 import _ from "underscore";
-import ElementHelper from "../dom/ElementHelper";
-import RequestParameters from "../request/RequestParameters";
+import ElementHelper from "../dom/ElementHelper.js";
+import RequestParameters from "../request/RequestParameters.js";
+import {handler} from "../events/index.js";
+
+/*
+The BaseClass is designed as a starting point for writing classes that might require common MalicAcid features such as
+access to an eventListener, an element helper and tools for dealing with request parameters. It also has some cheap and
+cheerful methods for automatically pulling options into the class as attributes from the constructor.
+ */
 
 export default class BaseClass{
     //A base class that can be extended that comes fitted with some helper methods for manipulating the dom and
@@ -13,7 +20,7 @@ export default class BaseClass{
     }
 
     //Handle option management, override this in extending classes if required to set defaults etc,
-    //by by default just do a straight assimilation
+    //by default just do a straight assimilation
     configure(options){
         this.assimilate(options);
     }
@@ -25,10 +32,6 @@ export default class BaseClass{
 
     //Add the eventHandler from window to the object so we can use it addListeners
     hookEventListener(){
-        if(window.eventHandler) {
-            this.eventHandler = window.eventHandler;
-        }else{
-            this.eventHandler = null;
-        }
+        this.eventHandler = handler();
     }
 }

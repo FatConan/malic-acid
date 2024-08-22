@@ -1,22 +1,52 @@
-import ElementHelper from "./dom/ElementHelper";
-import HighLevelEventHandler from "./events/HighLevelEventHandler";
-import FormHandler from "./forms/FormHandler";
-import BasicForm from "./forms/BasicForm";
-import FormHandlerWithGenerators from "./forms/FormHandlerWithGenerators";
-import BasicFormWithGenerators from "./forms/BasicFormWithGenerators";
-import ConfirmationModal from "./modal/ConfirmationModal";
-import forms from "./forms";
-import helpers from "./helpers";
-import events from "./events";
+import BaseClass from "./classes/BaseClass.js";
+import ListeningClass from "./classes/ListeningClass.js";
+import ElementHelper from "./dom/ElementHelper.js";
+import {handler, dropHandler, BaseHighLevelEventHandler, HighLevelEventHandler, HighLevelKeyPressEventHandler} from "./events/index.js";
+import ConfirmationModal from "./modal/ConfirmationModal.js";
+import SortableTable from "./htmlhelpers/SortableTable.js";
+import {FormHandler, BasicForm, FormHandlerWithGenerators, BasicFormWithGenerators} from "./forms/index.js";
+import Dispatcher from "./dispatcher/Dispatcher";
+import helpers from "./helpers.js";
+import css from "./css.js";
+
 export {
     ConfirmationModal,
+    SortableTable,
     ElementHelper,
+    BaseHighLevelEventHandler,
     HighLevelEventHandler,
+    HighLevelKeyPressEventHandler,
+    handler,
+    dropHandler,
     FormHandler,
+    BaseClass,
+    ListeningClass,
     BasicForm,
     FormHandlerWithGenerators,
     BasicFormWithGenerators,
-    forms,
+    Dispatcher,
     helpers,
-    events
+    css
 };
+
+const malicacid = {
+    ConfirmationModal,
+    SortableTable,
+    ElementHelper,
+    BaseHighLevelEventHandler,
+    HighLevelEventHandler,
+    HighLevelKeyPressEventHandler,
+    handler,
+    dropHandler,
+    FormHandler,
+    BaseClass,
+    ListeningClass,
+    BasicForm,
+    FormHandlerWithGenerators,
+    BasicFormWithGenerators,
+    Dispatcher,
+    helpers,
+    css
+};
+export default malicacid;
+

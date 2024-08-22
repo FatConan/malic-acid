@@ -1,4 +1,4 @@
-import FormHandlerWithGenerators from "./FormHandlerWithGenerators";
+import FormHandlerWithGenerators from "./FormHandlerWithGenerators.js";
 
 export default class BasicFormWithGenerators extends FormHandlerWithGenerators{
     constructor(options){

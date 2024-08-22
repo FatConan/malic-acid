@@ -1,4 +1,4 @@
-import FormHandler from "./FormHandler";
+import FormHandler from "./FormHandler.js";
 
 export default class BasicForm extends FormHandler{
     constructor(options){

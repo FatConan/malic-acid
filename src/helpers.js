@@ -1,15 +1,15 @@
-import ElementHelper from "./dom/ElementHelper";
-import HighLevelEventHandler from "./events/HighLevelEventHandler";
-import ConfirmationModal from "./modal/ConfirmationModal";
-import RequestParameters from "./request/RequestParameters";
-import BaseClass from "./classes/BaseClass";
+import ElementHelper from "./dom/ElementHelper.js";
+import HighLevelEventHandler from "./events/HighLevelEventHandler.js";
+import ConfirmationModal from "./modal/ConfirmationModal.js";
+import RequestParameters from "./request/RequestParameters.js";
+import BaseClass from "./classes/BaseClass.js";
 
 const dom = {
     ElementHelper
 };
 
 const events = {
-    HighLevelEventHandler
+    HighLevelEventHandler: HighLevelEventHandler
 };
 
 const modal = {

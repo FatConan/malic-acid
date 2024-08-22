@@ -3,3 +3,6 @@ node_modules
 dist/*.LICENSE.txt
 2020.*
 2023.*
+example/output
+package-lock.json
+venv

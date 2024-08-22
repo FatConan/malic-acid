@@ -1,13 +1,12 @@
-import FormHandler from "./FormHandler";
-import BasicForm from "./BasicForm";
-import FormHandlerWithGenerators from "./FormHandlerWithGenerators";
-import BasicFormWithGenerators from "./BasicFormWithGenerators";
+import FormHandler from "./FormHandler.js";
+import BasicForm from "./BasicForm.js";
+import FormHandlerWithGenerators from "./FormHandlerWithGenerators.js";
+import BasicFormWithGenerators from "./BasicFormWithGenerators.js";
 
-const forms = {
+export {
     FormHandler,
     BasicForm,
     FormHandlerWithGenerators,
     BasicFormWithGenerators
 };
 
-export default forms;
