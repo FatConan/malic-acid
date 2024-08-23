@@ -37,7 +37,7 @@ To build the *distributable version of Malic Acid* clone this repo, install Node
 npx esbuild --bundle src/index.js --format=esm --outdir=dist --external:jquery --external:underscore --external:jquery-ui --minify --sourcemap
 ```
 
-Or you may build the webpack bundle version using:
+Or you may build the webpack bundle (for use with require) version using:
 
 ```
 npx webpack
