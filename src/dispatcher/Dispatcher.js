@@ -59,8 +59,8 @@ export default class Dispatcher{
         this.viewList = viewList;
         let loaded = {};
         let loadedLabels = [];
-        this.on("dispatcher:viewloaded", (e) => {
-            let viewLabel = e.detail;
+        this.on("dispatcher:viewloaded", (e, args) => {
+            let viewLabel = args.payload;
             loaded[viewLabel] = true;
             for(let v of loadedLabels){
                 if(!loaded[v]){
