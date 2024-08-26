@@ -1,12 +1,13 @@
 import ElementHelper from "../dom/ElementHelper.js";
 
-export const NULL_ACTION = (e) => {};
+export const NULL_ACTION = (e) => {
+};
 
 export default class ListenerCollection{
     constructor(globalEventHandler){
         this.eventHandler = globalEventHandler;
         this.defaultEvent = this.eventHandler.defaultEvent;
-        this.listeners = {};
+        this.listeners = new Map();
     }
 
     //Add a listener for a specific element and a corresponding action to take
@@ -25,6 +26,10 @@ export default class ListenerCollection{
         this.addListener(targetMatch, NULL_ACTION);
     }
 
+    addWindowListener(event, action){
+        this.addListenerOnEvent(event, window, action);
+    }
+
     addListenerOnEvent(event, targetMatch, action){
         if(targetMatch instanceof HTMLElement){
             let meId = targetMatch.getAttribute("data-maliceventid");
@@ -35,15 +40,15 @@ export default class ListenerCollection{
             targetMatch = `${targetMatch.tagName}[data-maliceventid=${meId}]`;
         }
 
-        if(this.listeners.hasOwnProperty(event)){
-            if(this.listeners[event].hasOwnProperty(targetMatch)){
-                this.listeners[event][targetMatch].push(action);
+        if(this.listeners.has(event)){
+            if(this.listeners.get(event).has(targetMatch)){
+                this.listeners.get(event).get(targetMatch).push(action);
             }else{
-                this.listeners[event][targetMatch] = [action];
+                this.listeners.get(event).set(targetMatch, [action]);
             }
         }else{
-            this.listeners[event] = {};
-            this.listeners[event][targetMatch] = [action];
+            this.listeners.set(event, new Map());
+            this.listeners.get(event).set(targetMatch, [action]);
         }
 
         this.eventHandler.listen(event);
@@ -54,8 +59,8 @@ export default class ListenerCollection{
     }
 
     clearListenersOnEvent(event, listenerTarget){
-        if(this.listeners.hasOwnProperty(event) && this.listeners[event].hasOwnProperty(listenerTarget)){
-            delete this.listeners[event][listenerTarget];
+        if(this.listeners.has(event) && this.listeners.get(event).has(listenerTarget)){
+            this.listeners.get(event).delete(listenerTarget);
         }
     }
 
@@ -70,14 +75,10 @@ export default class ListenerCollection{
 
     list(){
         let repr = [];
-        for(let event in this.listeners){
-            if(this.listeners.hasOwnProperty(event)){
-                repr.push(`Event: ${event}`);
-                for(let target in this.listeners[event]){
-                    if(this.listeners[event].hasOwnProperty(target)){
-                       repr.push(target, this.listeners[event][target]);
-                    }
-                }
+        for(const [event, targets] of this.listeners.entries()){
+            repr.push(`Event: ${event}`);
+            for(let [target, actions] of targets.entries()){
+                repr.push(target, actions);
             }
         }
         return repr;

@@ -91,19 +91,16 @@ export default class ElementHelper{
      * @returns {*[][]|({matches}|*|string)[]}
      */
     static parentMatches(element, matchObj){
-        while(element && element.tagName !== null){
-            if(element.matches){
-                for(let m in matchObj){
-                    if(matchObj.hasOwnProperty(m)){
-                        if(element === m){
-                            return [element, m, matchObj[m]];
-                        }
-                        if(element.matches(m)){
-                            return [element, m, matchObj[m]];
-                        }
-                    }
+        while(element && (element.tagName !== null || element === window)){
+            for(const [triggerElMatch, action] of matchObj.entries()){
+                if(element === triggerElMatch){
+                    return [element, triggerElMatch, action];
+                }
+                if(element.matches && element.matches(triggerElMatch)){
+                    return [element, triggerElMatch, action];
                 }
             }
+
             element = element.parentNode;
         }
         return [null, null, []];

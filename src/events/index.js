@@ -3,7 +3,7 @@ import HighLevelEventHandler from "./HighLevelEventHandler.js";
 import HighLevelKeyPressEventHandler from "./HighLevelKeyPressEventHandler.js";
 
 
-const DEFAULT_OPTIONS = {target: "html"};
+const DEFAULT_OPTIONS = {target: window};
 
  const hookupOfType = (handlerClazz, options) => {
     if(!window.eventHandler){

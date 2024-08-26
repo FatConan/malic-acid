@@ -177,6 +177,10 @@ eventHandler.addListener("code.language-javascript", (e, args) => {
     interactiveModal.form.submitInteractive();
 });
 
+/*eventHandler.addWindowListener("resize",  (e, args) => {
+    console.log("WINDOW RESIZED", e, args);
+});*/
+
 //Enable the page tabs
 $("body").tabs();
 
