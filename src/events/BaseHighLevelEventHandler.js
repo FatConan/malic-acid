@@ -41,20 +41,19 @@ export default class BaseHighLevelEventHandler{
     }
 
     addListenerGroup(groupName){
-        if(typeof groupName !== "string"){
-            console.log(groupName);
-        }
-        if(this.namedListenerCollections.hasOwnProperty(groupName)){
+        if(this.namedListenerCollections.has(groupName)){
             console.warn(`Named Listener Collection ${groupName} already exists`);
-            return this.namedListenerCollections[groupName];
+            return this.namedListenerCollections.get(groupName);
         }
         const groupCollection = new NamespacedListenerCollection(this, groupName);
-        this.namedListenerCollections[groupName] = groupCollection;
+        this.namedListenerCollections.set(groupName, groupCollection);
         return groupCollection;
     }
 
     removeListenerGroup(groupName){
-        delete this.namedListenerCollections[groupName];
+        if(this.namedListenerCollections.has(groupName)){
+            this.namedListenerCollections.delete(groupName);
+        }
     }
 
     //Show debug messaging about registered events when they fire
