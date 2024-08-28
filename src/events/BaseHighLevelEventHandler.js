@@ -68,6 +68,7 @@ export default class BaseHighLevelEventHandler{
         console.log("Base Listener Collection:", this.defaultListenerCollection.list());
         for(const [group, listeners] of this.namedListenerCollections.entries()){
             console.log(`Plugin Listeners [${group}]:`);
+            console.log(listeners.list());
         }
     }
 
@@ -138,6 +139,7 @@ export default class BaseHighLevelEventHandler{
                */
                 $(match[2]).each((i, action) => {
                     if(this.debug){
+                        console.log(`HIGH LEVEL EVENT HANDLER action Index ${i}`);
                         console.log("HIGH LEVEL EVENT HANDLER performing actions for ", match, e);
                     }
                     /*  execute the action. Listeners registered with this system should expect two
@@ -172,8 +174,10 @@ export default class BaseHighLevelEventHandler{
             }
         }
 
-        if(!this.eventProcessors.hasOwnProperty(event)){
-            //console.log(`Establish the listener for ${event}`, this.target[0]);
+        if(!this.eventProcessors.has(event)){
+            if(this.debug){
+                console.log(`Establish the listener for ${event} on ${this.target[0]}`);
+            }
             this.target[0].addEventListener(event, processor);
             this.eventProcessors.set(event, processor);
         }
