@@ -32,7 +32,9 @@ export default class BaseHighLevelEventHandler{
             this.loadingWarning = options.loadingWarning;
         }else{
             this.loadingWarning = () => {
-                alert("Not quite ready! The page is currently loading and this function isn't quite read yet, please try again.");
+                if(this.debug){
+                    console.log("Not quite ready! The page is currently loading and this function isn't quite read yet, please try again.");
+                }
             };
         }
 
