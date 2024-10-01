@@ -30,7 +30,7 @@ export default class ListenerCollection{
         this.addListenerOnEvent(event, window, action);
     }
 
-    addListenerOnEvent(event, targetMatch, action){
+    _addListenerOnEvent(event, targetMatch, action){
         if(targetMatch instanceof HTMLElement){
             let meId = targetMatch.getAttribute("data-maliceventid");
             if(meId == null){
@@ -52,6 +52,10 @@ export default class ListenerCollection{
         }
 
         this.eventHandler.listen(event);
+    }
+
+    addListenerOnEvent(event, targetMatch, action){
+        this._addListenerOnEvent(event, targetMatch, action);
     }
 
     clearListeners(listenerTarget){

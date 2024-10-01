@@ -17,7 +17,7 @@ export default class BaseHighLevelEventHandler{
     constructor(options){
         this.defaultEvent = options.defaultEvent;
         this.elementHelper = ElementHelper;
-        this.defaultListenerCollection = new ListenerCollection(this);
+        this.defaultListenerCollection = this.createListenerCollection();
         this.namedListenerCollections = new Map();
 
         this.debug = options.debug;
@@ -42,12 +42,20 @@ export default class BaseHighLevelEventHandler{
         this.eventProcessors = new Map();
     }
 
+    createListenerCollection(){
+        return new ListenerCollection(this);
+    }
+
+    createNameSpacedListenerCollection(groupName){
+        return new NamespacedListenerCollection(this, groupName);
+    }
+
     addListenerGroup(groupName){
         if(this.namedListenerCollections.has(groupName)){
             console.warn(`Named Listener Collection ${groupName} already exists`);
             return this.namedListenerCollections.get(groupName);
         }
-        const groupCollection = new NamespacedListenerCollection(this, groupName);
+        const groupCollection = this.createNameSpacedListenerCollection(groupName);
         this.namedListenerCollections.set(groupName, groupCollection);
         return groupCollection;
     }
@@ -98,6 +106,13 @@ export default class BaseHighLevelEventHandler{
 
     /*  Listens for events and the top level and performs any DOM traversal required to accommodate
         the listener's intended target. */
+
+    enact(action){
+        return (e, payload) => {
+            action(e, payload);
+        }
+    }
+
     listen(event){
         /*  We sometimes hit the scenario where not all the events for a page have been registered. This means any
             javascript trigger links that have been marked up like <a href="#">Thing</a> cause the page to jump to the top.
@@ -149,7 +164,7 @@ export default class BaseHighLevelEventHandler{
                         collection of pre-prepared elements containing the original e.target element
                         and its jquery extended version as well as the matched element and
                         its jquery extended version and the string user to match the element. */
-                    action(e, {
+                    this.enact(action)(e, {
                         el: el,
                         $el: $el,
                         matchedEl: match[0],
