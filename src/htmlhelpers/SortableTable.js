@@ -39,32 +39,34 @@ export default class SortableTableView extends ListeningClass{
             return (e) => {
                 let el = e.target;
                 let thEl = this.elementHelper.findParentTag(el, "TH");
-                if(thEl && thEl.hasClass("sortable")){
+                if(thEl){
                     let $el = $(thEl);
-                    if(!$el.hasClass("no-sorting")){
-                        let direction = "down";
+                    if($el.hasClass("sortable")){
+                        if(!$el.hasClass("no-sorting")) {
+                            let direction = "down";
 
-                        if($el.hasClass("down")){
-                            direction = "up";
-                        }
-
-                        $table.find("thead th").removeClass("up");
-                        $table.find("thead th").removeClass("down");
-                        $el.addClass(direction);
-
-                        let column = -1;
-                        let i = 0;
-                        for(let th of $table.find("thead th")){
-                            if(!$(th).hasClass("no-data")){
-                                if(th === el){
-                                    column = i;
-                                    break;
-                                }
-                                i++;
+                            if ($el.hasClass("down")) {
+                                direction = "up";
                             }
-                        }
 
-                        this.sortTable($table, direction, column);
+                            $table.find("thead th").removeClass("up");
+                            $table.find("thead th").removeClass("down");
+                            $el.addClass(direction);
+
+                            let column = -1;
+                            let i = 0;
+                            for (let th of $table.find("thead th")) {
+                                if (!$(th).hasClass("no-data")) {
+                                    if (th === el) {
+                                        column = i;
+                                        break;
+                                    }
+                                    i++;
+                                }
+                            }
+
+                            this.sortTable($table, direction, column);
+                        }
                     }
                 }
             };
