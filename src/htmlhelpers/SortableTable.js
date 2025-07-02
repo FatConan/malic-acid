@@ -22,10 +22,13 @@ export default class SortableTableView extends ListeningClass{
     addListeners(){
         this.targetTables.each((i, table) => {
             this.targetTableTimeouts[i] = null;
-            let filterTarget = $("#" + $(table).data("filterinput"));
-            filterTarget.on("keydown", () => {
-                this.listenForFilter(filterTarget, table, i);
-            });
+            let filterInput = $(table).data("filterinput");
+            if(filterInput){
+                let filterTarget = $("#" + filterInput);
+                filterTarget.on("keydown", () => {
+                    this.listenForFilter(filterTarget, table, i);
+                });
+            }
             this.sorter(table);
         });
     }

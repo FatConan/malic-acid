@@ -4,6 +4,7 @@ import ElementHelper from "./dom/ElementHelper.js";
 import {handler, dropHandler, BaseHighLevelEventHandler, HighLevelEventHandler, HighLevelKeyPressEventHandler, HandlersMap} from "./events/index.js";
 import ConfirmationModal from "./modal/ConfirmationModal.js";
 import SortableTable from "./htmlhelpers/SortableTable.js";
+import AutoTabs from "./htmlhelpers/AutoTabs.js";
 import {FormHandler, BasicForm, FormHandlerWithGenerators, BasicFormWithGenerators} from "./forms/index.js";
 import Dispatcher from "./dispatcher/Dispatcher.js";
 import helpers from "./helpers.js";
@@ -12,6 +13,7 @@ import css from "./css.js";
 export {
     ConfirmationModal,
     SortableTable,
+    AutoTabs,
     ElementHelper,
     BaseHighLevelEventHandler,
     HighLevelEventHandler,
@@ -33,6 +35,7 @@ export {
 const malicacid = {
     ConfirmationModal,
     SortableTable,
+    AutoTabs,
     ElementHelper,
     BaseHighLevelEventHandler,
     HighLevelEventHandler,
