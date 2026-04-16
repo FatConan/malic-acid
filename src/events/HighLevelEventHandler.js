@@ -1,4 +1,3 @@
-import "jquery";
 import BaseHighLevelEventHandler from "./BaseHighLevelEventHandler.js";
 export default class HighLevelEventHandler extends BaseHighLevelEventHandler {
     /** The HighLevelEventHandler is a touch/click event tracker that registers once at document level as a single listener
