@@ -122,5 +122,7 @@ export {
     HighLevelKeyPressEventHandler,
     HandlersMap,
     handler,
+    handlerAutoDetect,
+    isTouchDevice,
     dropHandler
 };
