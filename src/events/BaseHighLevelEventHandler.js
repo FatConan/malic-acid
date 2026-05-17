@@ -33,7 +33,7 @@ export default class BaseHighLevelEventHandler{
         }else{
             this.loadingWarning = () => {
                 if(this.debug){
-                    console.log("Not quite ready! The page is currently loading and this function isn't quite read yet, please try again.");
+                    console.debug("Not quite ready! The page is currently loading and this function isn't quite read yet, please try again.");
                 }
             };
         }
@@ -73,12 +73,12 @@ export default class BaseHighLevelEventHandler{
 
     //List all the currently registered events for debug purposes
     list(){
-        console.log("Base Listeners:");
-        console.log(this.defaultListenerCollection.list());
-        console.log("Base Listener Collection:", this.defaultListenerCollection.list());
+        console.debug("Base Listeners:");
+        console.debug(this.defaultListenerCollection.list());
+        console.debug("Base Listener Collection:", this.defaultListenerCollection.list());
         for(const [group, listeners] of this.namedListenerCollections.entries()){
-            console.log(`Plugin Listeners [${group}]:`);
-            console.log(listeners.list());
+            console.debug(`Plugin Listeners [${group}]:`);
+            console.debug(listeners.list());
         }
     }
 
@@ -123,7 +123,7 @@ export default class BaseHighLevelEventHandler{
          */
         const processor = (e) => {
             if(this.debug){
-                console.log("HIGH LEVEL EVENT HANDLER firing on ", e);
+                console.debug("HIGH LEVEL EVENT HANDLER firing on ", e);
             }
 
             const el = e.target;
@@ -136,7 +136,7 @@ export default class BaseHighLevelEventHandler{
             let simpleTopLink = false;
             if($el.attr("href") === "#"){
                 if(this.debug){
-                    console.log("HIGH LEVEL EVENT HANDLER suppressing default for empty link ", e);
+                    console.debug("HIGH LEVEL EVENT HANDLER suppressing default for empty link ", e);
                 }
                 e.preventDefault();
                 simpleTopLink = true;
@@ -156,8 +156,8 @@ export default class BaseHighLevelEventHandler{
                */
                 $(match[2]).each((i, action) => {
                     if(this.debug){
-                        console.log(`HIGH LEVEL EVENT HANDLER action Index ${i}`);
-                        console.log("HIGH LEVEL EVENT HANDLER performing actions for ", match, e);
+                        console.debug(`HIGH LEVEL EVENT HANDLER action Index ${i}`);
+                        console.debug("HIGH LEVEL EVENT HANDLER performing actions for ", match, e);
                     }
                     /*  execute the action. Listeners registered with this system should expect two
                         arguments (a, args) the first being the original event, the second being a
@@ -179,7 +179,7 @@ export default class BaseHighLevelEventHandler{
                     hasn't been loaded yet (this highLevelHandler should load first, so check if there are events registered on the element) in which case just inform people that the page is still loading.
                  */
                 if(this.debug){
-                    console.log("HIGH LEVEL EVENT HANDLER showing not loaded message on simple link ", e);
+                    console.debug("HIGH LEVEL EVENT HANDLER showing not loaded message on simple link ", e);
                 }
                 const ev = $._data(el, 'events');
                 if(!ev || !ev.click){
@@ -187,13 +187,13 @@ export default class BaseHighLevelEventHandler{
                 }
             }else if(this.debug){
                 /* Otherwise do nothing (or log we're doing nothing) */
-                console.log("HIGH LEVEL EVENT HANDLER taking no further action ", e);
+                console.debug("HIGH LEVEL EVENT HANDLER taking no further action ", e);
             }
         }
 
         if(!this.eventProcessors.has(event)){
             if(this.debug){
-                console.log(`Establish the listener for ${event} on ${this.target[0]}`);
+                console.debug(`Establish the listener for ${event} on ${this.target[0]}`);
             }
             this.target[0].addEventListener(event, processor);
             this.eventProcessors.set(event, processor);
