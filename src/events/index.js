@@ -97,7 +97,9 @@ const handler = (groupName) => {
 
 const isTouchDevice = () => {
     // With a nod to https://stackoverflow.com/questions/4817029
-    return window.matchMedia("(pointer: coarse)").matches;
+    return (('ontouchstart' in window) ||
+        (navigator.maxTouchPoints > 0) ||
+        (navigator.msMaxTouchPoints > 0));
 }
 
 /**
