@@ -102,18 +102,6 @@ const isTouchDevice = () => {
         (navigator.msMaxTouchPoints > 0));
 }
 
-/**
- * Add a handler, checking to see if the device is a touch device and
- * setting the touchscreen parameter appropriately
- * @param groupName
- * @returns {*|ListenerCollection}
- */
-const handlerAutoDetect = (groupName) => {
-    let options = {DEFAULT_OPTIONS}
-    options.touchscreen = isTouchDevice();
-    return HandlersMap.fetchOrCreateListenerGroup(DEFAULT_NAMESPACE, HighLevelEventHandler, options, groupName);
-}
-
 const dropHandler = (groupName) => {
     HandlersMap.dropHandlerOrCollection(DEFAULT_NAMESPACE, groupName);
 };
@@ -124,7 +112,6 @@ export {
     HighLevelKeyPressEventHandler,
     HandlersMap,
     handler,
-    handlerAutoDetect,
     isTouchDevice,
     dropHandler
 };
