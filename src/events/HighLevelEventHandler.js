@@ -11,8 +11,8 @@ export default class HighLevelEventHandler extends BaseHighLevelEventHandler {
      */
 
     constructor(options){
-        //options.defaultEvent = options.touchscreen ? "touchstart" : "click";
-        options.defaultEvent = "pointerdown";
+        options.defaultEvent = options.touchscreen ? "touchstart" : "click";
+        //options.defaultEvent = "pointerdown";
         super(options);
         this.touchscreen = options.touchscreen === true;
     }
